@@ -6,7 +6,6 @@ import (
 	"strings"
 
 	v "github.com/appscode/go/version"
-	onessl "github.com/appscode/onessl/cmds"
 	"github.com/jpillora/go-ogle-analytics"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
@@ -21,8 +20,8 @@ func NewRootCmd(version string) *cobra.Command {
 		enableAnalytics = true
 	)
 	rootCmd := &cobra.Command{
-		Use:               "pre-k [command]",
-		Short:             `Pre-k by AppsCode - Utilities for your cloud`,
+		Use:               "onessl [command]",
+		Short:             `onessl by AppsCode - Simple CLI to generate SSL certificates on any platform`,
 		DisableAutoGenTag: true,
 		PersistentPreRun: func(c *cobra.Command, args []string) {
 			c.Flags().VisitAll(func(flag *pflag.Flag) {
@@ -42,12 +41,7 @@ func NewRootCmd(version string) *cobra.Command {
 	flag.CommandLine.Parse([]string{})
 
 	rootCmd.AddCommand(NewCmdCreate())
-	rootCmd.AddCommand(NewCmdCheck())
-	rootCmd.AddCommand(onessl.NewCmdGet())
-	rootCmd.AddCommand(NewCmdLinode())
-	rootCmd.AddCommand(NewCmdMachine())
-	rootCmd.AddCommand(NewCmdMerge())
-	rootCmd.AddCommand(NewCmdVultr())
+	rootCmd.AddCommand(NewCmdGet())
 	rootCmd.AddCommand(v.NewCmdVersion())
 	return rootCmd
 }

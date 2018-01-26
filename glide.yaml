@@ -5,9 +5,11 @@ import:
 - package: github.com/appscode/go
   version: master
 - package: github.com/appscode/kutil
-  version: release-5.0
+  version: release-6.0
 - package: github.com/appscode/mergo
   version: master
+- package: github.com/appscode/onessl
+  version: release-0.1
 - package: github.com/ghodss/yaml
   version: v1.0.0
 - package: github.com/jpillora/go-ogle-analytics
