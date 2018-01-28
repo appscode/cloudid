@@ -1,15 +1,21 @@
-## pre-k get
+## pre-k get kube-ca
 
-Get stuff
+Prints CA certificate for Kubernetes cluster from Kubeconfig
 
 ### Synopsis
 
-Get stuff
+Prints CA certificate for Kubernetes cluster from Kubeconfig
+
+```
+pre-k get kube-ca [flags]
+```
 
 ### Options
 
 ```
-  -h, --help   help for get
+      --context string      Name of kubeconfig context to use
+  -h, --help                help for kube-ca
+      --kubeconfig string   Path to kubeconfig file with authorization information (the master location is set by the master flag).
 ```
 
 ### Options inherited from parent commands
@@ -27,7 +33,5 @@ Get stuff
 
 ### SEE ALSO
 
-* [pre-k](pre-k.md)	 - Pre-k by AppsCode - Utilities for your cloud
-* [pre-k get ca-cert](pre-k_get_ca-cert.md)	 - Prints self-sgned CA certificate from PEM encoded RSA private key
-* [pre-k get kube-ca](pre-k_get_kube-ca.md)	 - Prints CA certificate for Kubernetes cluster from Kubeconfig
+* [pre-k get](pre-k_get.md)	 - Get stuff
 

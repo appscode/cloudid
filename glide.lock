@@ -1,5 +1,5 @@
 hash: f8ea762c8ecb2fdc19b955a6e6bb31a120f99d916da8fa573057fd18a9ffe902
-updated: 2018-01-26T00:14:36.095809107-08:00
+updated: 2018-01-28T04:42:35.003828293-08:00
 imports:
 - name: cloud.google.com/go
   version: 3b1ae45394a234c385be014e9a488f2bb6eef821
@@ -19,15 +19,16 @@ imports:
   - types
   - version
 - name: github.com/appscode/kutil
-  version: ace10068d6334865247d59cdc3fc70d51ab8b8e5
+  version: 60ced7f055b34d512a84f65ca0a7d412ec3d6ef2
   subpackages:
   - core/v1
   - meta
   - tools/certstore
+  - tools/clientcmd
 - name: github.com/appscode/mergo
   version: e3000cb3d28c72b837601cac94debd91032d19fe
 - name: github.com/appscode/onessl
-  version: 35bc30f6507e430a6f53bcbd250f6bbf81c89ba9
+  version: a08e8a7bfab2e4cf05b1ae5bb0275be9219f4631
   subpackages:
   - cmds
 - name: github.com/Azure/go-autorest
@@ -40,7 +41,7 @@ imports:
 - name: github.com/cenkalti/backoff
   version: 61153c768f31ee5f130071d08fc82b85208528de
 - name: github.com/cpuguy83/go-md2man
-  version: 20f5889cbdc3c73dbd2862796665e7c465ade7d1
+  version: 71acacd42f85e5e82f70a55327789582a5200a90
   subpackages:
   - md2man
 - name: github.com/davecgh/go-spew
@@ -69,7 +70,7 @@ imports:
   - proto
   - sortkeys
 - name: github.com/golang/glog
-  version: 23def4e6c14b4da8ac2ed8007337bc5eb5007998
+  version: 44145f04b68cf362d9c4df2182967c2275eaefed
 - name: github.com/golang/protobuf
   version: 1643683e1b54a9e88ad26d98f81400c8c9d9f4f9
   subpackages:

@@ -6,6 +6,7 @@ import (
 	"net"
 	"os"
 
+	"github.com/appscode/go/log"
 	"github.com/appscode/kutil/tools/certstore"
 	"github.com/spf13/afero"
 	"github.com/spf13/cobra"
@@ -14,7 +15,7 @@ import (
 
 func NewCmdCreateServer(certDir string) *cobra.Command {
 	var (
-		sans    = cert.AltNames{
+		sans = cert.AltNames{
 			IPs: []net.IP{net.ParseIP("127.0.0.1")},
 		}
 		overwrite bool
@@ -24,8 +25,15 @@ func NewCmdCreateServer(certDir string) *cobra.Command {
 		Short:             "Generate server certificate pair",
 		DisableAutoGenTag: true,
 		Run: func(cmd *cobra.Command, args []string) {
+			if len(args) == 0 {
+				log.Fatalln("Missing server name.")
+			}
+			if len(args) > 1 {
+				log.Fatalln("Multiple server name found.")
+			}
+
 			cfg := cert.Config{
-				CommonName: "server",
+				CommonName: args[0],
 				AltNames:   sans,
 				Usages:     []x509.ExtKeyUsage{x509.ExtKeyUsageServerAuth},
 			}

@@ -1,8 +1,9 @@
 package cmds
 
 import (
-	"github.com/spf13/cobra"
 	"os"
+
+	"github.com/spf13/cobra"
 	"k8s.io/client-go/util/homedir"
 )
 
