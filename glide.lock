@@ -1,5 +1,5 @@
 hash: f8ea762c8ecb2fdc19b955a6e6bb31a120f99d916da8fa573057fd18a9ffe902
-updated: 2018-01-28T04:42:35.003828293-08:00
+updated: 2018-02-22T16:24:23.82160834+06:00
 imports:
 - name: cloud.google.com/go
   version: 3b1ae45394a234c385be014e9a488f2bb6eef821
@@ -7,7 +7,7 @@ imports:
   - compute/metadata
   - internal
 - name: github.com/appscode/go
-  version: 99dbf420807d9459b63d1d0bf702537bb7aa976f
+  version: 83e7fc1967ed737eedfc87da60c42e9fc4dc684c
   subpackages:
   - context
   - log
@@ -19,7 +19,7 @@ imports:
   - types
   - version
 - name: github.com/appscode/kutil
-  version: 60ced7f055b34d512a84f65ca0a7d412ec3d6ef2
+  version: 20ffc2be6a1d88387bc6f6babe7bfe312c58b509
   subpackages:
   - core/v1
   - meta
@@ -28,7 +28,7 @@ imports:
 - name: github.com/appscode/mergo
   version: e3000cb3d28c72b837601cac94debd91032d19fe
 - name: github.com/appscode/onessl
-  version: a08e8a7bfab2e4cf05b1ae5bb0275be9219f4631
+  version: 4d145b674c4a22cbb1082cfd2a5d1cc84e40cc76
   subpackages:
   - cmds
 - name: github.com/Azure/go-autorest
@@ -50,10 +50,16 @@ imports:
   - spew
 - name: github.com/dgrijalva/jwt-go
   version: 01aeca54ebda6e0fbfafd0a524d234159c05ec20
+- name: github.com/drone/envsubst
+  version: f4d1a8ef8670afc9eea1fb95ee09a979fd2763a3
+  subpackages:
+  - parse
 - name: github.com/emicklei/go-restful
   version: ff4f55a206334ef123e4f79bbf348980da81ca46
   subpackages:
   - log
+- name: github.com/evanphx/json-patch
+  version: 944e07253867aacae43c04b2e6a239005443f33a
 - name: github.com/ghodss/yaml
   version: 0ca9ea5df5451ffdf184b4428c902747c2c11cd7
 - name: github.com/go-openapi/jsonpointer
@@ -116,7 +122,7 @@ imports:
   subpackages:
   - diskcache
 - name: github.com/hashicorp/go-version
-  version: 53932f80ddea12bea96be074f9fb2dc545806aba
+  version: 39c2af67036e26c310812b838b652cd91f66c9a7
   repo: https://github.com/appscode/go-version.git
   vcs: git
 - name: github.com/howeyc/gopass
@@ -143,24 +149,38 @@ imports:
   - jwriter
 - name: github.com/peterbourgon/diskv
   version: 5f041e8faa004a95c88a202771f4cc3e991971e6
+- name: github.com/pkg/errors
+  version: 645ef00459ed84a119197bfb8d8205042c6df63d
 - name: github.com/PuerkitoBio/purell
   version: 8a290539e2e8629dbc4e6bad948158f790ec31f4
 - name: github.com/PuerkitoBio/urlesc
   version: 5bd2802263f21d8788851d5305584c82a5c75d7e
 - name: github.com/russross/blackfriday
   version: 300106c228d52c8941d4b3de6054a6062a86dda3
+- name: github.com/sergi/go-diff
+  version: 24e2351369ec4949b2ed0dc5c477afdd4c4034e8
+  repo: https://github.com/sergi/go-diff
+  subpackages:
+  - diffmatchpatch
 - name: github.com/shurcooL/sanitized_anchor_name
   version: 10ef21a441db47d8b13ebcc5fd2310f636973c77
 - name: github.com/spf13/afero
-  version: bb8f1927f2a9d3ab41c9340aa034f6b803f4359c
+  version: bbf41cb36dffe15dff5bf7e18c447801e7ffe163
   subpackages:
   - mem
 - name: github.com/spf13/cobra
-  version: f91529fc609202eededff4de2dc0ba2f662240a3
+  version: a1e4933ab784095895e33dbe9f001ba10cfe2060
   subpackages:
   - doc
 - name: github.com/spf13/pflag
   version: e57e3eeb33f795204c1ca35f56c44f83227c6e66
+- name: github.com/yudai/gojsondiff
+  version: e21612694bdd50975f93cd5eaccb457477128e28
+  subpackages:
+  - formatter
+- name: github.com/yudai/golcs
+  version: d1c525dea8ce39ea9a783d33cf08932305373f2c
+  repo: https://github.com/yudai/golcs
 - name: golang.org/x/crypto
   version: 1f22c0103821b9390939b6776727195525381532
   subpackages:
@@ -282,6 +302,7 @@ imports:
   - pkg/util/framer
   - pkg/util/intstr
   - pkg/util/json
+  - pkg/util/jsonmergepatch
   - pkg/util/mergepatch
   - pkg/util/net
   - pkg/util/runtime
@@ -296,7 +317,7 @@ imports:
   - third_party/forked/golang/json
   - third_party/forked/golang/reflect
 - name: k8s.io/apiserver
-  version: 91e14f394e4796abf5a994a349a222e7081d86b6
+  version: 2a1092aaa7202e8f9b188281ff9424a014ce61c2
   subpackages:
   - pkg/util/feature
 - name: k8s.io/client-go
@@ -382,6 +403,15 @@ imports:
   - pkg/proxy/apis/kubeproxyconfig/v1alpha1
   - pkg/registry/core/service/allocator
   - pkg/registry/core/service/ipallocator
+  - pkg/util/io
+  - pkg/util/mount
+  - pkg/util/nsenter
   - pkg/util/pointer
   - pkg/util/version
+- name: k8s.io/utils
+  version: aedf551cdb8b0119df3a19c65fde413a13b34997
+  subpackages:
+  - clock
+  - exec
+  - exec/testing
 testImports: []
