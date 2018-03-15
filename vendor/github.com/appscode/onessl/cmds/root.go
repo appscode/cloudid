@@ -5,6 +5,7 @@ import (
 	"log"
 	"strings"
 
+	"github.com/appscode/go/analytics"
 	v "github.com/appscode/go/version"
 	"github.com/jpillora/go-ogle-analytics"
 	"github.com/spf13/cobra"
@@ -29,6 +30,7 @@ func NewRootCmd(version string) *cobra.Command {
 			})
 			if enableAnalytics && gaTrackingCode != "" {
 				if client, err := ga.NewClient(gaTrackingCode); err == nil {
+					client.ClientID(analytics.ClientID())
 					parts := strings.Split(c.CommandPath(), " ")
 					client.Send(ga.NewEvent(parts[0], strings.Join(parts[1:], "/")).Label(version))
 				}
@@ -41,9 +43,14 @@ func NewRootCmd(version string) *cobra.Command {
 	flag.CommandLine.Parse([]string{})
 	flag.Set("stderrthreshold", "ERROR")
 
-	rootCmd.AddCommand(NewCmdCreate())
-	rootCmd.AddCommand(NewCmdGet())
 	rootCmd.AddCommand(NewCmdBase64())
+	rootCmd.AddCommand(NewCmdCreate())
+	rootCmd.AddCommand(NewCmdEnvsubst())
+	rootCmd.AddCommand(NewCmdGet())
+	rootCmd.AddCommand(NewCmdJsonpath())
+	rootCmd.AddCommand(NewCmdSemver())
+	rootCmd.AddCommand(NewCmdHasKeys())
+	rootCmd.AddCommand(NewCmdWaitUntilReady())
 	rootCmd.AddCommand(v.NewCmdVersion())
 	return rootCmd
 }
