@@ -1,7 +1,7 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/pharmer/pre-k)](https://goreportcard.com/report/github.com/pharmer/pre-k)
 [![Build Status](https://travis-ci.org/pharmer/pre-k.svg?branch=master)](https://travis-ci.org/pharmer/pre-k)
 [![codecov](https://codecov.io/gh/pharmer/pre-k/branch/master/graph/badge.svg)](https://codecov.io/gh/pharmer/pre-k)
-[![Slack](https://slack.appscode.com/badge.svg)](https://slack.appscode.com)
+[![Slack](http://slack.kubernetes.io/badge.svg)](http://slack.kubernetes.io)
 [![Twitter](https://img.shields.io/twitter/follow/appscodehq.svg?style=social&logo=twitter&label=Follow)](https://twitter.com/intent/follow?screen_name=AppsCodeHQ)
 
 # Pre-k
