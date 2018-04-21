@@ -2,7 +2,10 @@ package lib
 
 import (
 	"github.com/pharmer/pre-k/internal"
+	"os/exec"
 )
+
+var ExecCommand = exec.Command
 
 func DetectCloudProvider() string {
 	done := make(chan string)
@@ -34,4 +37,12 @@ func DetectCloudProvider() string {
 		}()
 	}
 	return provider
+}
+
+func UserExists(u string) bool  {
+	return ExecCommand("id", "-u", u).Run() == nil
+}
+
+func Run(cmd string, args ...string) error  {
+	return ExecCommand(cmd, args...).Run()
 }

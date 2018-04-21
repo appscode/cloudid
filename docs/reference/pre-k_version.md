@@ -13,7 +13,8 @@ pre-k version [flags]
 ### Options
 
 ```
-  -h, --help   help for version
+  -h, --help    help for version
+      --short   Print just the version number.
 ```
 
 ### Options inherited from parent commands

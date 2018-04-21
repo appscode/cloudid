@@ -49,5 +49,6 @@ func NewRootCmd(version string) *cobra.Command {
 	rootCmd.AddCommand(NewCmdMerge())
 	rootCmd.AddCommand(NewCmdVultr())
 	rootCmd.AddCommand(v.NewCmdVersion())
+	rootCmd.AddCommand(NewCmdMountMasterPD())
 	return rootCmd
 }

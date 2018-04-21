@@ -16,7 +16,7 @@ pre-k merge node-config [flags]
       --config string                                 Path to kubeadm config file
       --discovery-file string                         A file or url from which to load cluster information
       --discovery-token string                        A token used to validate cluster information fetched from the master
-      --discovery-token-ca-cert-hash stringSlice      For token-based discovery, validate that the root CA public key matches this hash (format: "<type>:<value>").
+      --discovery-token-ca-cert-hash strings          For token-based discovery, validate that the root CA public key matches this hash (format: "<type>:<value>").
       --discovery-token-unsafe-skip-ca-verification   For token-based discovery, allow joining without --discovery-token-ca-cert-hash pinning.
   -h, --help                                          help for node-config
       --node-name string                              Specify the node name

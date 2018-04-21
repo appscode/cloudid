@@ -14,8 +14,8 @@ pre-k machine node-ip [flags]
 ### Options
 
 ```
-  -h, --help                 help for node-ip
-      --ifaces stringSlice   Comma separated list of interface names. If empty, all interfaces are checked.
+  -h, --help             help for node-ip
+      --ifaces strings   Comma separated list of interface names. If empty, all interfaces are checked.
 ```
 
 ### Options inherited from parent commands
