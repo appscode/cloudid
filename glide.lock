@@ -1,5 +1,5 @@
 hash: f8ea762c8ecb2fdc19b955a6e6bb31a120f99d916da8fa573057fd18a9ffe902
-updated: 2018-02-22T16:24:23.82160834+06:00
+updated: 2018-04-21T14:07:17.818311426-07:00
 imports:
 - name: cloud.google.com/go
   version: 3b1ae45394a234c385be014e9a488f2bb6eef821
@@ -7,9 +7,11 @@ imports:
   - compute/metadata
   - internal
 - name: github.com/appscode/go
-  version: 83e7fc1967ed737eedfc87da60c42e9fc4dc684c
+  version: 0eb2cabe3897bfd0fe615e9849583a88bcc82df4
   subpackages:
+  - analytics
   - context
+  - homedir
   - log
   - log/golog
   - net
@@ -18,8 +20,10 @@ imports:
   - sets
   - types
   - version
+- name: github.com/appscode/jsonpatch
+  version: 58a38a46ddb591a543c6b1003213353e29331c5a
 - name: github.com/appscode/kutil
-  version: 20ffc2be6a1d88387bc6f6babe7bfe312c58b509
+  version: c3aa54aedcceb925ba15c7bf4a6c2e456138755e
   subpackages:
   - core/v1
   - meta
@@ -28,7 +32,7 @@ imports:
 - name: github.com/appscode/mergo
   version: e3000cb3d28c72b837601cac94debd91032d19fe
 - name: github.com/appscode/onessl
-  version: 4d145b674c4a22cbb1082cfd2a5d1cc84e40cc76
+  version: 04400e3d35c28bdfef7169a164f058861016e108
   subpackages:
   - cmds
 - name: github.com/Azure/go-autorest
@@ -88,7 +92,7 @@ imports:
 - name: github.com/google/btree
   version: 7d79101e329e5a3adf994758c578dab82b90c017
 - name: github.com/google/go-cmp
-  version: 97aa668b73e764ccdd786bc3ccd2edffe621150e
+  version: 5411ab924f9ffa6566244a9e504bc347edacffd3
   subpackages:
   - cmp
   - cmp/internal/diff
@@ -122,7 +126,7 @@ imports:
   subpackages:
   - diskcache
 - name: github.com/hashicorp/go-version
-  version: 39c2af67036e26c310812b838b652cd91f66c9a7
+  version: 53932f80ddea12bea96be074f9fb2dc545806aba
   repo: https://github.com/appscode/go-version.git
   vcs: git
 - name: github.com/howeyc/gopass
@@ -132,7 +136,7 @@ imports:
 - name: github.com/inconshreveable/mousetrap
   version: 76626ae9c91c4f2a10f34cad8ce83ea42c93bb75
 - name: github.com/JamesClonk/vultr
-  version: fa1c0367800db75e4d10d0ec90c49a8731670224
+  version: ee63e028f35bcafd35411640173990c97cc7f866
   subpackages:
   - lib
 - name: github.com/jpillora/go-ogle-analytics
@@ -158,29 +162,27 @@ imports:
 - name: github.com/russross/blackfriday
   version: 300106c228d52c8941d4b3de6054a6062a86dda3
 - name: github.com/sergi/go-diff
-  version: 24e2351369ec4949b2ed0dc5c477afdd4c4034e8
-  repo: https://github.com/sergi/go-diff
+  version: 97b2266dfe4bd4ea1b81a463322f04f8b724801e
   subpackages:
   - diffmatchpatch
 - name: github.com/shurcooL/sanitized_anchor_name
   version: 10ef21a441db47d8b13ebcc5fd2310f636973c77
 - name: github.com/spf13/afero
-  version: bbf41cb36dffe15dff5bf7e18c447801e7ffe163
+  version: 63644898a8da0bc22138abf860edaf5277b6102e
   subpackages:
   - mem
 - name: github.com/spf13/cobra
-  version: a1e4933ab784095895e33dbe9f001ba10cfe2060
+  version: 615425954c3b0d9485a7027d4d451fdcdfdee84e
   subpackages:
   - doc
 - name: github.com/spf13/pflag
   version: e57e3eeb33f795204c1ca35f56c44f83227c6e66
 - name: github.com/yudai/gojsondiff
-  version: e21612694bdd50975f93cd5eaccb457477128e28
+  version: 7b1b7adf999dab73a6eb02669c3d82dbb27a3dd6
   subpackages:
   - formatter
 - name: github.com/yudai/golcs
   version: d1c525dea8ce39ea9a783d33cf08932305373f2c
-  repo: https://github.com/yudai/golcs
 - name: golang.org/x/crypto
   version: 1f22c0103821b9390939b6776727195525381532
   subpackages:
@@ -273,6 +275,13 @@ imports:
   - storage/v1
   - storage/v1alpha1
   - storage/v1beta1
+- name: k8s.io/apiextensions-apiserver
+  version: 98ecf7bbd60f9f11a72000e4f05203f542136219
+  subpackages:
+  - pkg/apis/apiextensions
+  - pkg/apis/apiextensions/v1beta1
+  - pkg/client/clientset/clientset/scheme
+  - pkg/client/clientset/clientset/typed/apiextensions/v1beta1
 - name: k8s.io/apimachinery
   version: 180eddb345a5be3a157cea1c624700ad5bd27b8f
   subpackages:
@@ -302,7 +311,6 @@ imports:
   - pkg/util/framer
   - pkg/util/intstr
   - pkg/util/json
-  - pkg/util/jsonmergepatch
   - pkg/util/mergepatch
   - pkg/util/net
   - pkg/util/runtime
@@ -317,7 +325,7 @@ imports:
   - third_party/forked/golang/json
   - third_party/forked/golang/reflect
 - name: k8s.io/apiserver
-  version: 2a1092aaa7202e8f9b188281ff9424a014ce61c2
+  version: 1270e9f1ad9eaf6127691df90af0836f7e152495
   subpackages:
   - pkg/util/feature
 - name: k8s.io/client-go
@@ -376,6 +384,14 @@ imports:
   - util/homedir
   - util/integer
   - util/jsonpath
+- name: k8s.io/kube-aggregator
+  version: 23f9f59d663ea22b680310831a1b7297914b4ed3
+  subpackages:
+  - pkg/apis/apiregistration
+  - pkg/apis/apiregistration/v1beta1
+  - pkg/client/clientset_generated/clientset
+  - pkg/client/clientset_generated/clientset/scheme
+  - pkg/client/clientset_generated/clientset/typed/apiregistration/v1beta1
 - name: k8s.io/kube-openapi
   version: 39a7bf85c140f972372c2a0d1ee40adbf0c8bfe1
   subpackages:
