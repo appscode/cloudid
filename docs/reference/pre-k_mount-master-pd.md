@@ -1,20 +1,19 @@
-## pre-k version
+## pre-k mount-master-pd
 
-Prints binary version number.
+Mount persistant disk to master
 
 ### Synopsis
 
-Prints binary version number.
+Mount persistant disk to master
 
 ```
-pre-k version [flags]
+pre-k mount-master-pd [flags]
 ```
 
 ### Options
 
 ```
-  -h, --help    help for version
-      --short   Print just the version number.
+  -h, --help   help for mount-master-pd
 ```
 
 ### Options inherited from parent commands

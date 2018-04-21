@@ -28,6 +28,7 @@ Pre-k by AppsCode - Utilities for your cloud
 * [pre-k linode](pre-k_linode.md)	 - linode commands
 * [pre-k machine](pre-k_machine.md)	 - machine commands
 * [pre-k merge](pre-k_merge.md)	 - Merge Kubeadm config
+* [pre-k mount-master-pd](pre-k_mount-master-pd.md)	 - Mount persistant disk to master
 * [pre-k version](pre-k_version.md)	 - Prints binary version number.
 * [pre-k vultr](pre-k_vultr.md)	 - vultr commands
 

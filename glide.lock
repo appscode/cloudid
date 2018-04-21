@@ -1,5 +1,5 @@
-hash: f8ea762c8ecb2fdc19b955a6e6bb31a120f99d916da8fa573057fd18a9ffe902
-updated: 2018-04-21T14:07:17.818311426-07:00
+hash: f7dc238937f40b76849a37f2fd786de9316b57059a126c6b0e3de05f40cb5422
+updated: 2018-04-21T14:13:02.718148226-07:00
 imports:
 - name: cloud.google.com/go
   version: 3b1ae45394a234c385be014e9a488f2bb6eef821
@@ -176,7 +176,7 @@ imports:
   subpackages:
   - doc
 - name: github.com/spf13/pflag
-  version: e57e3eeb33f795204c1ca35f56c44f83227c6e66
+  version: 583c0c0531f06d5278b7d917446061adc344b5cd
 - name: github.com/yudai/gojsondiff
   version: 7b1b7adf999dab73a6eb02669c3d82dbb27a3dd6
   subpackages:
