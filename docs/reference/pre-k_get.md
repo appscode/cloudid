@@ -29,5 +29,4 @@ Get stuff
 
 * [pre-k](pre-k.md)	 - Pre-k by AppsCode - Utilities for your cloud
 * [pre-k get ca-cert](pre-k_get_ca-cert.md)	 - Prints self-sgned CA certificate from PEM encoded RSA private key
-* [pre-k get kube-ca](pre-k_get_kube-ca.md)	 - Prints CA certificate for Kubernetes cluster from Kubeconfig
 

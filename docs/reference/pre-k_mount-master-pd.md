@@ -13,7 +13,8 @@ pre-k mount-master-pd [flags]
 ### Options
 
 ```
-  -h, --help   help for mount-master-pd
+  -h, --help              help for mount-master-pd
+      --provider string   Name of cloud provider
 ```
 
 ### Options inherited from parent commands
