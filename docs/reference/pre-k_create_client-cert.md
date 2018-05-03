@@ -13,10 +13,10 @@ pre-k create client-cert [flags]
 ### Options
 
 ```
-      --cert-dir string       Path to directory where pki files are stored. (default "/etc/kubernetes/pki")
-  -h, --help                  help for client-cert
-  -o, --organization string   Name of client organizations.
-      --overwrite             Overwrite existing cert/key pair
+      --cert-dir string        Path to directory where pki files are stored. (default "/etc/kubernetes/pki")
+  -h, --help                   help for client-cert
+  -o, --organization strings   Name of client organizations.
+      --overwrite              Overwrite existing cert/key pair
 ```
 
 ### Options inherited from parent commands

@@ -6,7 +6,6 @@ import (
 	"strings"
 
 	v "github.com/appscode/go/version"
-	onessl "github.com/appscode/onessl/cmds"
 	"github.com/jpillora/go-ogle-analytics"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
@@ -43,7 +42,7 @@ func NewRootCmd(version string) *cobra.Command {
 
 	rootCmd.AddCommand(NewCmdCreate())
 	rootCmd.AddCommand(NewCmdCheck())
-	rootCmd.AddCommand(onessl.NewCmdGet())
+	rootCmd.AddCommand(NewCmdGet())
 	rootCmd.AddCommand(NewCmdLinode())
 	rootCmd.AddCommand(NewCmdMachine())
 	rootCmd.AddCommand(NewCmdMerge())
