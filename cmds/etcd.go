@@ -6,7 +6,7 @@ import (
 	"github.com/appscode/go/term"
 	"github.com/ghodss/yaml"
 	"github.com/spf13/cobra"
-	kubeadmapi "k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1alpha1"
+	kubeadmapi "k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm"
 	kubeadmphase "k8s.io/kubernetes/cmd/kubeadm/app/phases/certs"
 )
 
