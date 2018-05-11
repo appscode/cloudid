@@ -23,6 +23,7 @@ func NewCmdMergeMasterConfig() *cobra.Command {
 			},
 		}
 		sans []string
+		isHa bool
 	)
 	var cfgPath string
 	var featureGatesString string
@@ -59,6 +60,12 @@ func NewCmdMergeMasterConfig() *cobra.Command {
 			cfg.APIVersion = "kubeadm.k8s.io/v1alpha1"
 			cfg.Kind = "MasterConfiguration"
 			cfg.APIServerCertSANs = sanSet.List()
+			if isHa {
+				/*extraArgs := map[string]string{
+
+				}*/
+				//cfg.Etcd.ExtraArgs = append(cfg.Etcd.ExtraArgs, extraArgs...)
+			}
 			data, err := yaml.Marshal(cfg)
 			if err != nil {
 				Fatal(err)
@@ -116,5 +123,6 @@ func NewCmdMergeMasterConfig() *cobra.Command {
 		"Options are:\n"+strings.Join(features.KnownFeatures(&features.InitFeatureGates), "\n"))
 	cmd.Flags().StringVar(&cfgPath, "config", cfgPath, "Path to kubeadm config file (WARNING: Usage of a configuration file is experimental)")
 
+	cmd.Flags().BoolVar(&isHa, "ha", false, "Enable to apply ha cluster")
 	return cmd
 }
