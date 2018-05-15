@@ -7,6 +7,7 @@ import (
 	"github.com/ghodss/yaml"
 	"github.com/spf13/cobra"
 	kubeadmapi "k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm"
+	kubeadmconstants "k8s.io/kubernetes/cmd/kubeadm/app/constants"
 	kubeadmphase "k8s.io/kubernetes/cmd/kubeadm/app/phases/certs"
 )
 
@@ -29,10 +30,12 @@ func NewCmdEtcd() *cobra.Command {
 			if err != nil {
 				Fatal(err)
 			}
-			if conf.CertificatesDir != "" {
-				if err := generateCerts(&conf); err != nil {
-					term.Fatalln(err)
-				}
+			if conf.CertificatesDir == "" {
+				conf.CertificatesDir = kubeadmconstants.KubernetesDir + "/pki"
+			}
+
+			if err := generateCerts(&conf); err != nil {
+				term.Fatalln(err)
 			}
 
 		},
@@ -43,19 +46,18 @@ func NewCmdEtcd() *cobra.Command {
 }
 
 func generateCerts(cfg *kubeadmapi.MasterConfiguration) error {
-	if err := kubeadmphase.CreateEtcdServerCertAndKeyFiles(cfg); err != nil {
-		return err
+	certActions := []func(cfg *kubeadmapi.MasterConfiguration) error{
+		kubeadmphase.CreateEtcdServerCertAndKeyFiles,
+		kubeadmphase.CreateEtcdPeerCertAndKeyFiles,
+		kubeadmphase.CreateEtcdHealthcheckClientCertAndKeyFiles,
+		kubeadmphase.CreateAPIServerEtcdClientCertAndKeyFiles,
 	}
 
-	if err := kubeadmphase.CreateEtcdPeerCertAndKeyFiles(cfg); err != nil {
-		return err
-	}
-
-	if err := kubeadmphase.CreateEtcdHealthcheckClientCertAndKeyFiles(cfg); err != nil {
-		return err
-	}
-	if err := kubeadmphase.CreateAPIServerEtcdClientCertAndKeyFiles(cfg); err != nil {
-		return err
+	for _, action := range certActions {
+		err := action(cfg)
+		if err != nil {
+			return err
+		}
 	}
 	return nil
 }

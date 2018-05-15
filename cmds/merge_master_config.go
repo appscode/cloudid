@@ -6,6 +6,7 @@ import (
 	"os"
 	"strings"
 
+	"github.com/appscode/go/net"
 	"github.com/appscode/mergo"
 	"github.com/ghodss/yaml"
 	"github.com/spf13/cobra"
@@ -26,6 +27,7 @@ func NewCmdMergeMasterConfig() *cobra.Command {
 		isHa bool
 	)
 	var cfgPath string
+	var etcdServerAddress string
 	var featureGatesString string
 	cmd := &cobra.Command{
 		Use:               "master-config",
@@ -61,9 +63,37 @@ func NewCmdMergeMasterConfig() *cobra.Command {
 			cfg.Kind = "MasterConfiguration"
 			cfg.APIServerCertSANs = sanSet.List()
 			if isHa {
+				ips, _, err := net.RoutableIPs()
+				if err != nil {
+					Fatal(fmt.Errorf("failed to detect routable ips. Reason: %v", err))
+				}
+				if len(ips) == 0 {
+					Fatal(fmt.Errorf("no routable ips found"))
+				}
+				nodeIp := ips[0]
+				clusterType := "join"
+				if etcdServerAddress == "" {
+					clusterType = "seed"
+				}
+				extraArgs := map[string]string{
+					"name":             cfg.NodeName,
+					"cluster-type":     clusterType,
+					"data-dir":         fmt.Sprintf("/var/lib/etcd/%v", cfg.NodeName),
+					"listen-peer-urls": fmt.Sprintf("http://%s:2380", nodeIp),
+					//"listen-metrics-urls":         "https://127.0.0.1:2381",
+					"listen-client-urls":          "http://0.0.0.0:2379",
+					"initial-advertise-peer-urls": fmt.Sprintf("http://%s:2380", nodeIp),
+					"advertise-client-urls":       fmt.Sprintf("http://%s:2379", nodeIp),
+					//"client-cert-auth":            "true",
+					//"peer-client-cert-auth":       "false",
+					"quota-backend-bytes": "2147483648",
+					"v":              "10",
+					"server-address": etcdServerAddress,
+				}
 				/*extraArgs := map[string]string{
 
 				}*/
+				cfg.Etcd.ExtraArgs = extraArgs
 				//cfg.Etcd.ExtraArgs = append(cfg.Etcd.ExtraArgs, extraArgs...)
 			}
 			data, err := yaml.Marshal(cfg)
@@ -124,5 +154,6 @@ func NewCmdMergeMasterConfig() *cobra.Command {
 	cmd.Flags().StringVar(&cfgPath, "config", cfgPath, "Path to kubeadm config file (WARNING: Usage of a configuration file is experimental)")
 
 	cmd.Flags().BoolVar(&isHa, "ha", false, "Enable to apply ha cluster")
+	cmd.Flags().StringVar(&etcdServerAddress, "etcd-server", "", "Etcd server address to join member, example: http://127.0.0.1:2379")
 	return cmd
 }
