@@ -71,13 +71,11 @@ func NewCmdMergeMasterConfig() *cobra.Command {
 					Fatal(fmt.Errorf("no routable ips found"))
 				}
 				nodeIp := ips[0]
-				clusterType := "join"
 				if etcdServerAddress == "" {
-					clusterType = "seed"
+					etcdServerAddress = nodeIp
 				}
 				extraArgs := map[string]string{
 					"name":             cfg.NodeName,
-					"cluster-type":     clusterType,
 					"data-dir":         fmt.Sprintf("/var/lib/etcd/%v", cfg.NodeName),
 					"listen-peer-urls": fmt.Sprintf("http://%s:2380", nodeIp),
 					//"listen-metrics-urls":         "https://127.0.0.1:2381",
@@ -89,6 +87,7 @@ func NewCmdMergeMasterConfig() *cobra.Command {
 					"quota-backend-bytes": "2147483648",
 					"v":              "10",
 					"server-address": etcdServerAddress,
+					"self-address":    nodeIp,
 				}
 				/*extraArgs := map[string]string{
 
@@ -154,6 +153,6 @@ func NewCmdMergeMasterConfig() *cobra.Command {
 	cmd.Flags().StringVar(&cfgPath, "config", cfgPath, "Path to kubeadm config file (WARNING: Usage of a configuration file is experimental)")
 
 	cmd.Flags().BoolVar(&isHa, "ha", false, "Enable to apply ha cluster")
-	cmd.Flags().StringVar(&etcdServerAddress, "etcd-server", "", "Etcd server address to join member, example: http://127.0.0.1:2379")
+	cmd.Flags().StringVar(&etcdServerAddress, "etcd-server", "", "Etcd server address to join member, example: 127.0.0.1")
 	return cmd
 }
