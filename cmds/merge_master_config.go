@@ -87,7 +87,7 @@ func NewCmdMergeMasterConfig() *cobra.Command {
 					"quota-backend-bytes": "2147483648",
 					"v":              "10",
 					"server-address": etcdServerAddress,
-					"self-address":    nodeIp,
+					"self-address":   nodeIp,
 				}
 				/*extraArgs := map[string]string{
 

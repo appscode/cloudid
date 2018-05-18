@@ -12,5 +12,6 @@ func NewCmdGet() *cobra.Command {
 		DisableAutoGenTag: true,
 	}
 	cmd.AddCommand(onessl.NewCmdGetCACert())
+	cmd.AddCommand(NewCmdGetSAPub())
 	return cmd
 }
