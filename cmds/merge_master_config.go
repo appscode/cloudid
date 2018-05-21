@@ -9,6 +9,7 @@ import (
 	"github.com/appscode/go/net"
 	"github.com/appscode/mergo"
 	"github.com/ghodss/yaml"
+	. "github.com/pharmer/pre-k/lib"
 	"github.com/spf13/cobra"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/util/sets"
@@ -23,8 +24,9 @@ func NewCmdMergeMasterConfig() *cobra.Command {
 				Duration: 0,
 			},
 		}
-		sans []string
-		isHa bool
+		sans       []string
+		isHa       bool
+		tlsEnabled bool
 	)
 	var cfgPath string
 	var etcdServerAddress string
@@ -75,25 +77,17 @@ func NewCmdMergeMasterConfig() *cobra.Command {
 					etcdServerAddress = nodeIp
 				}
 				extraArgs := map[string]string{
-					"name":             cfg.NodeName,
-					"data-dir":         fmt.Sprintf("/var/lib/etcd/%v", cfg.NodeName),
-					"listen-peer-urls": fmt.Sprintf("http://%s:2380", nodeIp),
-					//"listen-metrics-urls":         "https://127.0.0.1:2381",
-					"listen-client-urls":          "http://0.0.0.0:2379",
-					"initial-advertise-peer-urls": fmt.Sprintf("http://%s:2380", nodeIp),
-					"advertise-client-urls":       fmt.Sprintf("http://%s:2379", nodeIp),
-					//"client-cert-auth":            "true",
-					//"peer-client-cert-auth":       "false",
-					"quota-backend-bytes": "2147483648",
+					"name":                        cfg.NodeName,
+					"data-dir":                    fmt.Sprintf("/var/lib/etcd/%v", cfg.NodeName),
+					"listen-client-urls":          fmt.Sprintf("%s://0.0.0.0:2379", Scheme(tlsEnabled)),
+					"advertise-client-urls":       fmt.Sprintf("%s://%s:2379", Scheme(tlsEnabled), nodeIp),
+					"listen-peer-urls":            fmt.Sprintf("%s://%s:2380", Scheme(tlsEnabled), nodeIp),
+					"initial-advertise-peer-urls": fmt.Sprintf("%s://%s:2380", Scheme(tlsEnabled), nodeIp),
+					"quota-backend-bytes":         "2147483648",
 					"v":              "10",
 					"server-address": etcdServerAddress,
-					"self-address":   nodeIp,
 				}
-				/*extraArgs := map[string]string{
-
-				}*/
 				cfg.Etcd.ExtraArgs = extraArgs
-				//cfg.Etcd.ExtraArgs = append(cfg.Etcd.ExtraArgs, extraArgs...)
 			}
 			data, err := yaml.Marshal(cfg)
 			if err != nil {
@@ -154,5 +148,6 @@ func NewCmdMergeMasterConfig() *cobra.Command {
 
 	cmd.Flags().BoolVar(&isHa, "ha", false, "Enable to apply ha cluster")
 	cmd.Flags().StringVar(&etcdServerAddress, "etcd-server", "", "Etcd server address to join member, example: 127.0.0.1")
+	cmd.Flags().BoolVar(&tlsEnabled, "tls-enabled", true, "Enable tls to secure etcd")
 	return cmd
 }
