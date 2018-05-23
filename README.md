@@ -18,7 +18,7 @@ Kubernetes 1.8+
   * [pre-k create client-cert](/docs/reference/pre-k_create_client-cert.md)	 - Generate client certificate pair
   * [pre-k create server-cert](/docs/reference/pre-k_create_server-cert.md)	 - Generate server certificate pair
 * [pre-k get](/docs/reference/pre-k_get.md)	 - Get stuff
-  * [pre-k get ca-cert](/docs/reference/pre-k_get_ca-cert.md)	 - Prints self-sgned CA certificate from PEM encoded RSA private key
+  * [pre-k get ca-cert](/docs/reference/pre-k_get_ca-cert.md)	 - Prints self-signed CA certificate from PEM encoded RSA private key
 * [pre-k linode](/docs/reference/pre-k_linode.md)  - linode commands
   * [pre-k linode hostname](/docs/reference/pre-k_linode_hostname.md)	 - Prints hostname based on public IP for current Linode host
 * [pre-k machine](/docs/reference/pre-k_machine.md)  - machine commands
