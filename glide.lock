@@ -1,5 +1,5 @@
 hash: 00ea52e433bcec4d5a7e4e7a31b0d3982376329020a81de9b9e9951541ff9e91
-updated: 2018-05-11T11:47:47.334439566+06:00
+updated: 2018-05-24T19:41:28.75842397-07:00
 imports:
 - name: cloud.google.com/go
   version: 3b1ae45394a234c385be014e9a488f2bb6eef821
@@ -24,15 +24,16 @@ imports:
   - types
   - version
 - name: github.com/appscode/jsonpatch
-  version: 1359b374de83fa14fd58ab10aa8ea4935f84d249
+  version: 58a38a46ddb591a543c6b1003213353e29331c5a
 - name: github.com/appscode/kutil
-  version: c397449684de5caf2de0309e6453eab905901cf8
+  version: e04d4d7ed42f54b68fc1e6a5926679883b0e5b56
   subpackages:
   - core/v1
   - meta
   - tools/backup
   - tools/certstore
   - tools/doctor
+  - tools/exec
   - tools/plugin_installer
 - name: github.com/appscode/mergo
   version: e3000cb3d28c72b837601cac94debd91032d19fe
@@ -162,7 +163,7 @@ imports:
 - name: github.com/google/btree
   version: 7d79101e329e5a3adf994758c578dab82b90c017
 - name: github.com/google/go-cmp
-  version: 97aa668b73e764ccdd786bc3ccd2edffe621150e
+  version: 5411ab924f9ffa6566244a9e504bc347edacffd3
   subpackages:
   - cmp
   - cmp/internal/diff
@@ -196,7 +197,7 @@ imports:
   subpackages:
   - diskcache
 - name: github.com/hashicorp/go-version
-  version: 39c2af67036e26c310812b838b652cd91f66c9a7
+  version: 53932f80ddea12bea96be074f9fb2dc545806aba
   repo: https://github.com/appscode/go-version.git
   vcs: git
 - name: github.com/hashicorp/golang-lru
@@ -216,7 +217,7 @@ imports:
 - name: github.com/jpillora/go-ogle-analytics
   version: 14b04e0594ef6a9fd943363b135656f0ec8c9d0e
 - name: github.com/json-iterator/go
-  version: 36b14963da70d11297d313183d7e6388c8510e1e
+  version: 13f86432b882000a51c6e610c620974462691a97
 - name: github.com/juju/ratelimit
   version: 5b9ff866471762aa2ab2dced63c9fb6f53921342
 - name: github.com/kardianos/osext
@@ -230,9 +231,9 @@ imports:
 - name: github.com/MakeNowJust/heredoc
   version: bb23615498cded5e105af4ce27de75b089cbe851
 - name: github.com/mattn/go-colorable
-  version: 3dac7b4f76f6e17fb39b768b89e3783d16e237fe
+  version: 5411d3eea5978e6cdc258b30de592b60df6aba96
 - name: github.com/mattn/go-isatty
-  version: 56b76bdf51f7708750eac80fa38b952bb9f32639
+  version: 57fdcb988a5c543893cc61bce354a6e24ab70022
 - name: github.com/matttproud/golang_protobuf_extensions
   version: fc2b8d3a73c4867e51861bbdd5ae3c1f0869dd6a
   subpackages:
@@ -278,8 +279,7 @@ imports:
 - name: github.com/russross/blackfriday
   version: 300106c228d52c8941d4b3de6054a6062a86dda3
 - name: github.com/sergi/go-diff
-  version: 24e2351369ec4949b2ed0dc5c477afdd4c4034e8
-  repo: https://github.com/sergi/go-diff
+  version: 97b2266dfe4bd4ea1b81a463322f04f8b724801e
   subpackages:
   - diffmatchpatch
 - name: github.com/shurcooL/sanitized_anchor_name
@@ -297,14 +297,13 @@ imports:
 - name: github.com/spf13/pflag
   version: 583c0c0531f06d5278b7d917446061adc344b5cd
 - name: github.com/yudai/gojsondiff
-  version: e21612694bdd50975f93cd5eaccb457477128e28
+  version: 7b1b7adf999dab73a6eb02669c3d82dbb27a3dd6
   subpackages:
   - formatter
 - name: github.com/yudai/golcs
   version: d1c525dea8ce39ea9a783d33cf08932305373f2c
-  repo: https://github.com/yudai/golcs
 - name: golang.org/x/crypto
-  version: 2d027ae1dddd4694d54f7a8b6cbe78dca8720226
+  version: 1f94bef427e370e425e55b172f3b5e300ef38304
   subpackages:
   - ed25519
   - ed25519/internal/edwards25519
@@ -357,7 +356,7 @@ imports:
   subpackages:
   - rate
 - name: google.golang.org/appengine
-  version: 4f7eeb5305a4ba1966344836ba4af9996b7b4e05
+  version: 12d5545dc1cfa6047a286d5e853841b6471f4c19
   subpackages:
   - internal
   - internal/app_identity
@@ -377,7 +376,7 @@ imports:
   - json
   - jwt
 - name: gopkg.in/yaml.v2
-  version: 53feefa2559fb8dfa8d81baad31be332c97d6c77
+  version: 670d4cfef0544295bc27a114dbac37980d83185a
 - name: k8s.io/api
   version: 73d903622b7391f3312dcbac6483fed484e185f8
   subpackages:
