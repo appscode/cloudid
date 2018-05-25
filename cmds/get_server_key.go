@@ -13,10 +13,10 @@ import (
 	"k8s.io/client-go/util/cert"
 )
 
-func NewCmdGetSAPub() *cobra.Command {
+func NewCmdGetPublicKey() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:               "sa-pub",
-		Short:             "Prints service account public key from private key",
+		Use:               "pub-key",
+		Short:             "Prints public key from PEM encoded RSA private key",
 		DisableAutoGenTag: true,
 		Run: func(cmd *cobra.Command, args []string) {
 			reader := bufio.NewReader(os.Stdin)
@@ -34,7 +34,7 @@ func NewCmdGetSAPub() *cobra.Command {
 			}
 			saPub, err := cert.EncodePublicKeyPEM(&saKey.PublicKey)
 			if err != nil {
-				Fatal(errors.Wrap(err, "failed to generate self-signed certificate"))
+				Fatal(errors.Wrap(err, "failed to generate public key"))
 			}
 			fmt.Println(string(saPub))
 			os.Exit(0)

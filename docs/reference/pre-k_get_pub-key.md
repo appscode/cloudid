@@ -1,19 +1,19 @@
-## pre-k get sa-pub
+## pre-k get pub-key
 
-Prints service account public key from private key
+Prints public key from PEM encoded RSA private key
 
 ### Synopsis
 
-Prints service account public key from private key
+Prints public key from PEM encoded RSA private key
 
 ```
-pre-k get sa-pub [flags]
+pre-k get pub-key [flags]
 ```
 
 ### Options
 
 ```
-  -h, --help   help for sa-pub
+  -h, --help   help for pub-key
 ```
 
 ### Options inherited from parent commands
