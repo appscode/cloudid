@@ -1,15 +1,20 @@
-## pre-k create
+## pre-k create etcd-certs
 
-create PKI
+Create etcd client and peer certificate pairs
 
 ### Synopsis
 
-create PKI
+Create etcd client and peer certificate pairs
+
+```
+pre-k create etcd-certs [flags]
+```
 
 ### Options
 
 ```
-  -h, --help   help for create
+      --config string   Path to kubeadm config file (WARNING: Usage of a configuration file is experimental)
+  -h, --help            help for etcd-certs
 ```
 
 ### Options inherited from parent commands
@@ -27,9 +32,5 @@ create PKI
 
 ### SEE ALSO
 
-* [pre-k](pre-k.md)	 - Pre-k by AppsCode - Utilities for your cloud
-* [pre-k create ca-cert](pre-k_create_ca-cert.md)	 - Create CA cert/key pair
-* [pre-k create client-cert](pre-k_create_client-cert.md)	 - Generate client certificate pair
-* [pre-k create etcd-certs](pre-k_create_etcd-certs.md)	 - Create etcd client and peer certificate pairs
-* [pre-k create server-cert](pre-k_create_server-cert.md)	 - Generate server certificate pair
+* [pre-k create](pre-k_create.md)	 - create PKI
 

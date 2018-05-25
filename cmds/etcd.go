@@ -11,11 +11,11 @@ import (
 	kubeadmphase "k8s.io/kubernetes/cmd/kubeadm/app/phases/certs"
 )
 
-func NewCmdEtcd() *cobra.Command {
+func NewCmdCreateEtcdCerts() *cobra.Command {
 	var cfgPath string
 	cmd := &cobra.Command{
-		Use:               "etcd",
-		Short:             "Configure etcd",
+		Use:               "etcd-certs",
+		Short:             "Create etcd client and peer certificate pairs",
 		DisableAutoGenTag: true,
 		Run: func(cmd *cobra.Command, args []string) {
 			if cfgPath == "" {

@@ -29,4 +29,5 @@ Get stuff
 
 * [pre-k](pre-k.md)	 - Pre-k by AppsCode - Utilities for your cloud
 * [pre-k get ca-cert](pre-k_get_ca-cert.md)	 - Prints self-sgned CA certificate from PEM encoded RSA private key
+* [pre-k get sa-pub](pre-k_get_sa-pub.md)	 - Prints service account public key from private key
 

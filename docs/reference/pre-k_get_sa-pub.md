@@ -1,15 +1,19 @@
-## pre-k create
+## pre-k get sa-pub
 
-create PKI
+Prints service account public key from private key
 
 ### Synopsis
 
-create PKI
+Prints service account public key from private key
+
+```
+pre-k get sa-pub [flags]
+```
 
 ### Options
 
 ```
-  -h, --help   help for create
+  -h, --help   help for sa-pub
 ```
 
 ### Options inherited from parent commands
@@ -27,9 +31,5 @@ create PKI
 
 ### SEE ALSO
 
-* [pre-k](pre-k.md)	 - Pre-k by AppsCode - Utilities for your cloud
-* [pre-k create ca-cert](pre-k_create_ca-cert.md)	 - Create CA cert/key pair
-* [pre-k create client-cert](pre-k_create_client-cert.md)	 - Generate client certificate pair
-* [pre-k create etcd-certs](pre-k_create_etcd-certs.md)	 - Create etcd client and peer certificate pairs
-* [pre-k create server-cert](pre-k_create_server-cert.md)	 - Generate server certificate pair
+* [pre-k get](pre-k_get.md)	 - Get stuff
 
