@@ -1,39 +1,32 @@
 package: github.com/pharmer/pre-k
 import:
 - package: github.com/JamesClonk/vultr
-  version: master
+  version: 1.15.0
 - package: github.com/appscode/go
   version: master
-- package: github.com/appscode/kutil
-  version: release-7.0
 - package: github.com/appscode/mergo
   version: master
-- package: github.com/appscode/onessl
-  version: release-0.3
 - package: github.com/ghodss/yaml
   version: v1.0.0
+- package: github.com/golang/glog
+- package: github.com/kubepack/onessl
+  version: 0.5.0
 - package: github.com/jpillora/go-ogle-analytics
-- package: github.com/spf13/afero
-  version: master
+- package: github.com/pkg/errors
+  version: v0.8.0
 - package: github.com/spf13/cobra
-  version: master
+  version: v0.0.3
 - package: github.com/spf13/pflag
-  version: master
-- package: github.com/gogo/protobuf/proto
-  version: c0656edd0d9eab7c66d1eb0c568f9039345796f7
-- package: k8s.io/api
-  version: kubernetes-1.10.0
+  version: v1.0.1
 - package: k8s.io/apimachinery
-  version: kubernetes-1.10.0
+  repo: https://github.com/pharmer/apimachinery.git
+  vcs: git
+  version: release-1.10
 - package: k8s.io/client-go
   version: v7.0.0
 - package: k8s.io/kubernetes
   version: v1.10.0
-- package: github.com/juju/ratelimit
-  version: 5b9ff866471762aa2ab2dced63c9fb6f53921342
-- package: github.com/hashicorp/go-version
-  repo: https://github.com/appscode/go-version.git
-  vcs: git
-  version: master
+- package: github.com/appscode/kutil
+  version: release-7.0
 - package: golang.org/x/crypto
-  version: master
+  version: 81e90905daefcd6fd217b62423c0908922eadb30
