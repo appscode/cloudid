@@ -6,8 +6,10 @@ import (
 	"os"
 	"strings"
 
+	"github.com/appscode/go/net"
 	"github.com/appscode/mergo"
 	"github.com/ghodss/yaml"
+	. "github.com/pharmer/pre-k/lib"
 	"github.com/spf13/cobra"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/util/sets"
@@ -22,9 +24,12 @@ func NewCmdMergeMasterConfig() *cobra.Command {
 				Duration: 0,
 			},
 		}
-		sans []string
+		sans       []string
+		isHa       bool
+		tlsEnabled bool
 	)
 	var cfgPath string
+	var etcdServerAddress string
 	var featureGatesString string
 	cmd := &cobra.Command{
 		Use:               "master-config",
@@ -59,6 +64,31 @@ func NewCmdMergeMasterConfig() *cobra.Command {
 			cfg.APIVersion = "kubeadm.k8s.io/v1alpha1"
 			cfg.Kind = "MasterConfiguration"
 			cfg.APIServerCertSANs = sanSet.List()
+			if isHa {
+				ips, _, err := net.RoutableIPs()
+				if err != nil {
+					Fatal(fmt.Errorf("failed to detect routable ips. Reason: %v", err))
+				}
+				if len(ips) == 0 {
+					Fatal(fmt.Errorf("no routable ips found"))
+				}
+				nodeIp := ips[0]
+				if etcdServerAddress == "" {
+					etcdServerAddress = nodeIp
+				}
+				extraArgs := map[string]string{
+					"name":                        cfg.NodeName,
+					"data-dir":                    fmt.Sprintf("/var/lib/etcd/%v", cfg.NodeName),
+					"listen-client-urls":          fmt.Sprintf("%s://0.0.0.0:2379", Scheme(tlsEnabled)),
+					"advertise-client-urls":       fmt.Sprintf("%s://%s:2379", Scheme(tlsEnabled), nodeIp),
+					"listen-peer-urls":            fmt.Sprintf("%s://%s:2380", Scheme(tlsEnabled), nodeIp),
+					"initial-advertise-peer-urls": fmt.Sprintf("%s://%s:2380", Scheme(tlsEnabled), nodeIp),
+					"quota-backend-bytes":         "2147483648",
+					"v":              "3",
+					"server-address": etcdServerAddress,
+				}
+				cfg.Etcd.ExtraArgs = extraArgs
+			}
 			data, err := yaml.Marshal(cfg)
 			if err != nil {
 				Fatal(err)
@@ -116,5 +146,8 @@ func NewCmdMergeMasterConfig() *cobra.Command {
 		"Options are:\n"+strings.Join(features.KnownFeatures(&features.InitFeatureGates), "\n"))
 	cmd.Flags().StringVar(&cfgPath, "config", cfgPath, "Path to kubeadm config file (WARNING: Usage of a configuration file is experimental)")
 
+	cmd.Flags().BoolVar(&isHa, "ha", false, "Enable to apply ha cluster")
+	cmd.Flags().StringVar(&etcdServerAddress, "etcd-server", "", "Etcd server address to join member, example: 127.0.0.1")
+	cmd.Flags().BoolVar(&tlsEnabled, "tls-enabled", true, "Enable tls to secure etcd")
 	return cmd
 }

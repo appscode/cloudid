@@ -18,18 +18,21 @@ pre-k merge master-config [flags]
       --apiserver-cert-extra-sans strings    Optional extra altnames to use for the API Server serving cert. Can be both IP addresses and dns names.
       --cert-dir string                      The path where to save and store the certificates
       --config string                        Path to kubeadm config file (WARNING: Usage of a configuration file is experimental)
+      --etcd-server string                   Etcd server address to join member, example: 127.0.0.1
       --feature-gates string                 A set of key=value pairs that describe feature gates for various features. Options are:
                                              Auditing=true|false (ALPHA - default=false)
                                              CoreDNS=true|false (BETA - default=false)
                                              DynamicKubeletConfig=true|false (ALPHA - default=false)
                                              SelfHosting=true|false (ALPHA - default=false)
                                              StoreCertsInSecrets=true|false (ALPHA - default=false)
+      --ha                                   Enable to apply ha cluster
   -h, --help                                 help for master-config
       --kubernetes-version string            Choose a specific Kubernetes version for the control plane
       --node-name string                     Specify the node name
       --pod-network-cidr string              Specify range of IP addresses for the pod network; if set, the control plane will automatically allocate CIDRs for every node
       --service-cidr string                  Use alternative range of IP address for service VIPs
       --service-dns-domain string            Use alternative domain for services, e.g. "myorg.internal"
+      --tls-enabled                          Enable tls to secure etcd (default true)
       --token string                         The token to use for establishing bidirectional trust between nodes and masters.
       --token-ttl duration                   The duration before the bootstrap token is automatically deleted. 0 means 'never expires'.
 ```

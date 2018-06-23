@@ -1,5 +1,5 @@
-hash: d9a805cc57f643698e8086b9d394e9ae11a9784efbdf883a1cb14e8b5b0a7e28
-updated: 2018-05-03T15:15:11.310198541-07:00
+hash: 3e495ae46ae2db60fdcfa559e55f28aa924b8f8caf3026fc4086885bb03b0d50
+updated: 2018-06-22T21:51:04.762927511-07:00
 imports:
 - name: cloud.google.com/go
   version: 3b1ae45394a234c385be014e9a488f2bb6eef821
@@ -7,7 +7,7 @@ imports:
   - compute/metadata
   - internal
 - name: github.com/appscode/go
-  version: 230e0e4622c682b5d117db8c28a66404ed874ed5
+  version: 578091d435e848d79527d8b911fdf1dd5423b227
   subpackages:
   - analytics
   - context
@@ -22,21 +22,19 @@ imports:
   - types
   - version
 - name: github.com/appscode/jsonpatch
-  version: 58a38a46ddb591a543c6b1003213353e29331c5a
+  version: 1359b374de83fa14fd58ab10aa8ea4935f84d249
 - name: github.com/appscode/kutil
-  version: 315e8967219ed1ab9d0acd6e0268e9b2fe60f742
+  version: 86a364f3fefcb36234a0f19a538c69d8314228b3
   subpackages:
   - core/v1
   - meta
   - tools/backup
   - tools/certstore
+  - tools/doctor
+  - tools/exec
   - tools/plugin_installer
 - name: github.com/appscode/mergo
   version: e3000cb3d28c72b837601cac94debd91032d19fe
-- name: github.com/appscode/onessl
-  version: 9a71abcf590dfebe63061d958cc6fdb51a0084db
-  subpackages:
-  - cmds
 - name: github.com/Azure/go-ansiterm
   version: 19f72df4d05d31cbe1c56bfc8045c96babff6c7e
   subpackages:
@@ -149,10 +147,12 @@ imports:
 - name: github.com/golang/protobuf
   version: 1643683e1b54a9e88ad26d98f81400c8c9d9f4f9
   subpackages:
+  - jsonpb
   - proto
   - ptypes
   - ptypes/any
   - ptypes/duration
+  - ptypes/struct
   - ptypes/timestamp
 - name: github.com/google/btree
   version: 7d79101e329e5a3adf994758c578dab82b90c017
@@ -205,7 +205,7 @@ imports:
 - name: github.com/inconshreveable/mousetrap
   version: 76626ae9c91c4f2a10f34cad8ce83ea42c93bb75
 - name: github.com/JamesClonk/vultr
-  version: ee63e028f35bcafd35411640173990c97cc7f866
+  version: fa1c0367800db75e4d10d0ec90c49a8731670224
   subpackages:
   - lib
 - name: github.com/jpillora/go-ogle-analytics
@@ -216,6 +216,10 @@ imports:
   version: 77ed1c8a01217656d2080ad51981f6e99adaa177
 - name: github.com/kardianos/osext
   version: 8fef92e41e22a70e700a96b29f066cda30ea24ef
+- name: github.com/kubepack/onessl
+  version: 7e97988ce097da268139a1732b16ba1905c6112d
+  subpackages:
+  - cmds
 - name: github.com/mailru/easyjson
   version: 2f5df55504ebc322e4d52d34df6a1f5b503bf26d
   subpackages:
@@ -277,7 +281,7 @@ imports:
 - name: github.com/sirupsen/logrus
   version: 89742aefa4b206dcf400792f3bd35b542998eb3b
 - name: github.com/spf13/afero
-  version: 63644898a8da0bc22138abf860edaf5277b6102e
+  version: 787d034dfe70e44075ccc060d346146ef53270ad
   subpackages:
   - mem
 - name: github.com/spf13/cobra
@@ -293,7 +297,7 @@ imports:
 - name: github.com/yudai/golcs
   version: d1c525dea8ce39ea9a783d33cf08932305373f2c
 - name: golang.org/x/crypto
-  version: 1f94bef427e370e425e55b172f3b5e300ef38304
+  version: 81e90905daefcd6fd217b62423c0908922eadb30
   subpackages:
   - ed25519
   - ed25519/internal/edwards25519
@@ -409,7 +413,9 @@ imports:
   - pkg/client/clientset/clientset/typed/apiextensions/v1beta1
   - pkg/features
 - name: k8s.io/apimachinery
-  version: 302974c03f7e50f16561ba237db776ab93594ef6
+  version: 2d462cff08891d952e216b5372464180933fc26c
+  repo: https://github.com/pharmer/apimachinery.git
+  vcs: git
   subpackages:
   - pkg/api/equality
   - pkg/api/errors

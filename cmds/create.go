@@ -1,7 +1,7 @@
 package cmds
 
 import (
-	onessl "github.com/appscode/onessl/cmds"
+	onessl "github.com/kubepack/onessl/cmds"
 	"github.com/spf13/cobra"
 	kubeadmapi "k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1alpha1"
 )

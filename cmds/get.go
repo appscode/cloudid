@@ -1,7 +1,7 @@
 package cmds
 
 import (
-	onessl "github.com/appscode/onessl/cmds"
+	onessl "github.com/kubepack/onessl/cmds"
 	"github.com/spf13/cobra"
 )
 
@@ -12,5 +12,6 @@ func NewCmdGet() *cobra.Command {
 		DisableAutoGenTag: true,
 	}
 	cmd.AddCommand(onessl.NewCmdGetCACert())
+	cmd.AddCommand(NewCmdGetPublicKey())
 	return cmd
 }
