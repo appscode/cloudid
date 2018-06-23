@@ -28,6 +28,6 @@ Get stuff
 ### SEE ALSO
 
 * [pre-k](pre-k.md)	 - Pre-k by AppsCode - Utilities for your cloud
-* [pre-k get ca-cert](pre-k_get_ca-cert.md)	 - Prints self-sgned CA certificate from PEM encoded RSA private key
+* [pre-k get ca-cert](pre-k_get_ca-cert.md)	 - Prints self-signed CA certificate from PEM encoded RSA private key
 * [pre-k get pub-key](pre-k_get_pub-key.md)	 - Prints public key from PEM encoded RSA private key
 

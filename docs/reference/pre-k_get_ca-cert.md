@@ -1,10 +1,10 @@
 ## pre-k get ca-cert
 
-Prints self-sgned CA certificate from PEM encoded RSA private key
+Prints self-signed CA certificate from PEM encoded RSA private key
 
 ### Synopsis
 
-Prints self-sgned CA certificate from PEM encoded RSA private key
+Prints self-signed CA certificate from PEM encoded RSA private key
 
 ```
 pre-k get ca-cert [flags]
