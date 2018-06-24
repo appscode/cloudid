@@ -1,7 +1,6 @@
 package cmds
 
 import (
-	"crypto/x509"
 	"fmt"
 	"os"
 
@@ -15,6 +14,7 @@ import (
 func NewCmdCreateClient(certDir string) *cobra.Command {
 	var (
 		org       []string
+		prefix    string
 		overwrite bool
 	)
 	cmd := &cobra.Command{
@@ -31,7 +31,6 @@ func NewCmdCreateClient(certDir string) *cobra.Command {
 
 			cfg := cert.Config{
 				CommonName:   args[0],
-				Usages:       []x509.ExtKeyUsage{x509.ExtKeyUsageClientAuth},
 				Organization: org,
 			}
 
@@ -40,12 +39,17 @@ func NewCmdCreateClient(certDir string) *cobra.Command {
 				fmt.Printf("Failed to create certificate store. Reason: %v.", err)
 				os.Exit(1)
 			}
-			if store.IsExists(Filename(cfg)) && overwrite {
+
+			var p []string
+			if prefix != "" {
+				p = append(p, prefix)
+			}
+			if store.IsExists(Filename(cfg), p...) && overwrite {
 				fmt.Printf("Client certificate found at %s. Do you want to overwrite?", store.Location())
 				os.Exit(1)
 			}
 
-			if err := store.LoadCA(); err != nil {
+			if err := store.LoadCA(p...); err != nil {
 				fmt.Printf("Failed to load ca certificate. Reason: %v.", err)
 				os.Exit(1)
 			}
@@ -67,6 +71,7 @@ func NewCmdCreateClient(certDir string) *cobra.Command {
 
 	cmd.Flags().StringVar(&certDir, "cert-dir", certDir, "Path to directory where pki files are stored.")
 	cmd.Flags().StringSliceVarP(&org, "organization", "o", org, "Name of client organizations.")
+	cmd.Flags().StringVarP(&prefix, "prefix", "p", prefix, "Prefix added to certificate files")
 	cmd.Flags().BoolVar(&overwrite, "overwrite", overwrite, "Overwrite existing cert/key pair")
 	return cmd
 }

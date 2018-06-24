@@ -13,9 +13,11 @@ pre-k create ca-cert [flags]
 ### Options
 
 ```
-      --cert-dir string   Path to directory where pki files are stored. (default "/etc/kubernetes/pki")
-  -h, --help              help for ca-cert
-      --overwrite         Overwrite existing cert/key pair
+      --cert-dir string        Path to directory where pki files are stored. (default "/etc/kubernetes/pki")
+  -h, --help                   help for ca-cert
+  -o, --organization strings   Name of client organizations.
+      --overwrite              Overwrite existing cert/key pair
+  -p, --prefix string          Prefix added to certificate files
 ```
 
 ### Options inherited from parent commands
