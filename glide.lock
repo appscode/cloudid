@@ -1,5 +1,5 @@
 hash: 8296c8d9d178980a30b2587822da5837ab8ddbff40ac7e314a7253cadbba04b2
-updated: 2018-06-24T01:50:52.032331128-07:00
+updated: 2018-06-24T02:42:07.742450525-07:00
 imports:
 - name: cloud.google.com/go
   version: 3b1ae45394a234c385be014e9a488f2bb6eef821
@@ -24,7 +24,7 @@ imports:
 - name: github.com/appscode/jsonpatch
   version: 1359b374de83fa14fd58ab10aa8ea4935f84d249
 - name: github.com/appscode/kutil
-  version: ee646fdc372ab69d22a5cab7fdcb1a19f89fc7b4
+  version: ec37a3956e776f45abf97361f34928c4514ebea0
   subpackages:
   - core/v1
   - meta
@@ -217,7 +217,7 @@ imports:
 - name: github.com/kardianos/osext
   version: 8fef92e41e22a70e700a96b29f066cda30ea24ef
 - name: github.com/kubepack/onessl
-  version: dae26eb5706b9da9a0813be0ae18f29bdb76a554
+  version: 9f14e43862170cbdbfb11447b70e4b6d03f9024f
   subpackages:
   - cmds
 - name: github.com/mailru/easyjson
