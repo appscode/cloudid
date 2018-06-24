@@ -17,6 +17,7 @@ func NewCmdCreate() *cobra.Command {
 	}
 	cmd.AddCommand(onessl.NewCmdCreateCA(certDir))
 	cmd.AddCommand(onessl.NewCmdCreateServer(certDir))
+	cmd.AddCommand(onessl.NewCmdCreatePeer(certDir))
 	cmd.AddCommand(onessl.NewCmdCreateClient(certDir))
 	return cmd
 }

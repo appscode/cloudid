@@ -30,5 +30,6 @@ create PKI
 * [pre-k](pre-k.md)	 - Pre-k by AppsCode - Utilities for your cloud
 * [pre-k create ca-cert](pre-k_create_ca-cert.md)	 - Create CA cert/key pair
 * [pre-k create client-cert](pre-k_create_client-cert.md)	 - Generate client certificate pair
+* [pre-k create peer-cert](pre-k_create_peer-cert.md)	 - Generate peer certificate pair
 * [pre-k create server-cert](pre-k_create_server-cert.md)	 - Generate server certificate pair
 

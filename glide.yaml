@@ -10,7 +10,7 @@ import:
   version: v1.0.0
 - package: github.com/golang/glog
 - package: github.com/kubepack/onessl
-  version: 0.5.0
+  version: 0.6.0
 - package: github.com/jpillora/go-ogle-analytics
 - package: github.com/pkg/errors
   version: v0.8.0
