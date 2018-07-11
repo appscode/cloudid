@@ -1,5 +1,5 @@
 hash: d9b74dba3d019656b013c8b7d1e6b4de1a851e45f72b8fbe1c2c2918347743ac
-updated: 2018-07-08T21:22:30.046075296-07:00
+updated: 2018-07-11T03:00:20.880010103-07:00
 imports:
 - name: cloud.google.com/go
   version: 3b1ae45394a234c385be014e9a488f2bb6eef821
@@ -26,7 +26,7 @@ imports:
 - name: github.com/appscode/jsonpatch
   version: 1359b374de83fa14fd58ab10aa8ea4935f84d249
 - name: github.com/appscode/kutil
-  version: ade0469e223909a181ae7a020024aa7adeb3dde6
+  version: 2f50a9a96687d25cddd29f38bf4da10ebe888eca
   subpackages:
   - core/v1
   - meta
@@ -210,7 +210,7 @@ imports:
 - name: github.com/kardianos/osext
   version: 8fef92e41e22a70e700a96b29f066cda30ea24ef
 - name: github.com/kubepack/onessl
-  version: 22188dfcfc5d84a5ffcdf236f7e30b7e08049706
+  version: 505a803076571d9474719fd6309558da2f02c33c
   subpackages:
   - cmds
 - name: github.com/mailru/easyjson
@@ -562,6 +562,7 @@ imports:
   subpackages:
   - cmd/kubeadm/app/apis/kubeadm
   - cmd/kubeadm/app/apis/kubeadm/v1alpha1
+  - cmd/kubeadm/app/apis/kubeadm/v1alpha2
   - cmd/kubeadm/app/constants
   - cmd/kubeadm/app/features
   - pkg/api/events
