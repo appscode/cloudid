@@ -11,22 +11,22 @@ import (
 	"github.com/ghodss/yaml"
 	. "github.com/pharmer/pre-k/lib"
 	"github.com/spf13/cobra"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+
+	//metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/util/sets"
-	kubeadmapi "k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1alpha1"
+	kubeadmapi "k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1alpha2"
 	"k8s.io/kubernetes/cmd/kubeadm/app/features"
+	//"time"
 )
 
 func NewCmdMergeMasterConfig() *cobra.Command {
 	var (
-		cfg = &kubeadmapi.MasterConfiguration{
-			TokenTTL: &metav1.Duration{
-				Duration: 0,
-			},
-		}
+		cfg        = &kubeadmapi.MasterConfiguration{}
 		sans       []string
 		isHa       bool
 		tlsEnabled bool
+		token      string
+		//tokenTTL *metav1.Duration
 	)
 	var cfgPath string
 	var etcdServerAddress string
@@ -40,9 +40,18 @@ func NewCmdMergeMasterConfig() *cobra.Command {
 			if cfg.FeatureGates, err = features.NewFeatureGate(&features.InitFeatureGates, featureGatesString); err != nil {
 				os.Exit(1)
 			}
+			bt, err := kubeadmapi.NewBootstrapTokenString(token)
+			if err != nil {
+				Fatal(err)
+			}
 
 			sanSet := sets.NewString(sans...)
-
+			cfg.BootstrapTokens = []kubeadmapi.BootstrapToken{
+				{
+					Token: bt,
+					//TTL: tokenTTL,
+				},
+			}
 			if cfgPath != "" {
 				data, err := ioutil.ReadFile(cfgPath)
 				if err != nil {
@@ -61,7 +70,7 @@ func NewCmdMergeMasterConfig() *cobra.Command {
 				}
 			}
 
-			cfg.APIVersion = "kubeadm.k8s.io/v1alpha1"
+			cfg.APIVersion = "kubeadm.k8s.io/v1alpha2"
 			cfg.Kind = "MasterConfiguration"
 			cfg.APIServerCertSANs = sanSet.List()
 			if isHa {
@@ -77,8 +86,8 @@ func NewCmdMergeMasterConfig() *cobra.Command {
 					etcdServerAddress = nodeIp
 				}
 				extraArgs := map[string]string{
-					"name":                        cfg.NodeName,
-					"data-dir":                    fmt.Sprintf("/var/lib/etcd/%v", cfg.NodeName),
+					//	"name":                        cfg.NodeName,
+					//	"data-dir":                    fmt.Sprintf("/var/lib/etcd/%v", cfg.NodeName),
 					"listen-client-urls":          fmt.Sprintf("%s://0.0.0.0:2379", Scheme(tlsEnabled)),
 					"advertise-client-urls":       fmt.Sprintf("%s://%s:2379", Scheme(tlsEnabled), nodeIp),
 					"listen-peer-urls":            fmt.Sprintf("%s://%s:2380", Scheme(tlsEnabled), nodeIp),
@@ -87,7 +96,7 @@ func NewCmdMergeMasterConfig() *cobra.Command {
 					"v":              "3",
 					"server-address": etcdServerAddress,
 				}
-				cfg.Etcd.ExtraArgs = extraArgs
+				cfg.Etcd.Local.ExtraArgs = extraArgs
 			}
 			data, err := yaml.Marshal(cfg)
 			if err != nil {
@@ -131,17 +140,17 @@ func NewCmdMergeMasterConfig() *cobra.Command {
 		`Optional extra altnames to use for the API Server serving cert. Can be both IP addresses and dns names.`,
 	)
 	cmd.Flags().StringVar(
-		&cfg.NodeName, "node-name", cfg.NodeName,
+		&cfg.NodeRegistration.Name, "node-name", cfg.NodeRegistration.Name,
 		`Specify the node name`,
 	)
 	cmd.Flags().StringVar(
-		&cfg.Token, "token", cfg.Token,
+		&token, "token", token,
 		"The token to use for establishing bidirectional trust between nodes and masters.",
 	)
-	cmd.Flags().DurationVar(
-		&cfg.TokenTTL.Duration, "token-ttl", cfg.TokenTTL.Duration,
+	/*cmd.Flags().DurationVar(
+		&tokenTTL, "token-ttl", tokenTTL,
 		"The duration before the bootstrap token is automatically deleted. 0 means 'never expires'.",
-	)
+	)*/
 	cmd.Flags().StringVar(&featureGatesString, "feature-gates", featureGatesString, "A set of key=value pairs that describe feature gates for various features. "+
 		"Options are:\n"+strings.Join(features.KnownFeatures(&features.InitFeatureGates), "\n"))
 	cmd.Flags().StringVar(&cfgPath, "config", cfgPath, "Path to kubeadm config file (WARNING: Usage of a configuration file is experimental)")
