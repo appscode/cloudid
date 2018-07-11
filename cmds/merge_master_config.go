@@ -5,18 +5,17 @@ import (
 	"io/ioutil"
 	"os"
 	"strings"
+	"time"
 
 	"github.com/appscode/go/net"
 	"github.com/appscode/mergo"
 	"github.com/ghodss/yaml"
 	. "github.com/pharmer/pre-k/lib"
 	"github.com/spf13/cobra"
-
-	//metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/util/sets"
 	kubeadmapi "k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1alpha2"
 	"k8s.io/kubernetes/cmd/kubeadm/app/features"
-	//"time"
 )
 
 func NewCmdMergeMasterConfig() *cobra.Command {
@@ -26,7 +25,7 @@ func NewCmdMergeMasterConfig() *cobra.Command {
 		isHa       bool
 		tlsEnabled bool
 		token      string
-		//tokenTTL *metav1.Duration
+		tokenTTL   time.Duration = 0
 	)
 	var cfgPath string
 	var etcdServerAddress string
@@ -40,18 +39,23 @@ func NewCmdMergeMasterConfig() *cobra.Command {
 			if cfg.FeatureGates, err = features.NewFeatureGate(&features.InitFeatureGates, featureGatesString); err != nil {
 				os.Exit(1)
 			}
-			bt, err := kubeadmapi.NewBootstrapTokenString(token)
-			if err != nil {
-				Fatal(err)
+			if token != "" {
+				bt, err := kubeadmapi.NewBootstrapTokenString(token)
+				if err != nil {
+					Fatal(err)
+				}
+				cfg.BootstrapTokens = []kubeadmapi.BootstrapToken{
+					{
+						Token: bt,
+						TTL: &metav1.Duration{
+							tokenTTL,
+						},
+					},
+				}
 			}
 
 			sanSet := sets.NewString(sans...)
-			cfg.BootstrapTokens = []kubeadmapi.BootstrapToken{
-				{
-					Token: bt,
-					//TTL: tokenTTL,
-				},
-			}
+
 			if cfgPath != "" {
 				data, err := ioutil.ReadFile(cfgPath)
 				if err != nil {
@@ -147,10 +151,10 @@ func NewCmdMergeMasterConfig() *cobra.Command {
 		&token, "token", token,
 		"The token to use for establishing bidirectional trust between nodes and masters.",
 	)
-	/*cmd.Flags().DurationVar(
+	cmd.Flags().DurationVar(
 		&tokenTTL, "token-ttl", tokenTTL,
 		"The duration before the bootstrap token is automatically deleted. 0 means 'never expires'.",
-	)*/
+	)
 	cmd.Flags().StringVar(&featureGatesString, "feature-gates", featureGatesString, "A set of key=value pairs that describe feature gates for various features. "+
 		"Options are:\n"+strings.Join(features.KnownFeatures(&features.InitFeatureGates), "\n"))
 	cmd.Flags().StringVar(&cfgPath, "config", cfgPath, "Path to kubeadm config file (WARNING: Usage of a configuration file is experimental)")
