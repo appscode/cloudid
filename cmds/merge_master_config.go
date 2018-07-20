@@ -16,6 +16,7 @@ import (
 	"k8s.io/apimachinery/pkg/util/sets"
 	kubeadmapi "k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1alpha2"
 	"k8s.io/kubernetes/cmd/kubeadm/app/features"
+	kubeadmutil "k8s.io/kubernetes/cmd/kubeadm/app/util"
 )
 
 func NewCmdMergeMasterConfig() *cobra.Command {
@@ -30,6 +31,9 @@ func NewCmdMergeMasterConfig() *cobra.Command {
 	var cfgPath string
 	var etcdServerAddress string
 	var featureGatesString string
+
+	kubeadmapi.SetDefaults_MasterConfiguration(cfg)
+
 	cmd := &cobra.Command{
 		Use:               "master-config",
 		Short:             `Merge Kubeadm master configuration`,
@@ -56,6 +60,8 @@ func NewCmdMergeMasterConfig() *cobra.Command {
 
 			sanSet := sets.NewString(sans...)
 
+			kubeadmutil.CheckErr(err)
+
 			if cfgPath != "" {
 				data, err := ioutil.ReadFile(cfgPath)
 				if err != nil {
@@ -68,14 +74,12 @@ func NewCmdMergeMasterConfig() *cobra.Command {
 				}
 				sanSet.Insert(in.APIServerCertSANs...)
 
-				err = mergo.Merge(cfg, in)
+				err = mergo.MergeWithOverwrite(cfg, in)
 				if err != nil {
 					Fatal(err)
 				}
 			}
 
-			cfg.APIVersion = "kubeadm.k8s.io/v1alpha2"
-			cfg.Kind = "MasterConfiguration"
 			cfg.APIServerCertSANs = sanSet.List()
 			if isHa {
 				ips, _, err := net.RoutableIPs()
@@ -146,6 +150,10 @@ func NewCmdMergeMasterConfig() *cobra.Command {
 	cmd.Flags().StringVar(
 		&cfg.NodeRegistration.Name, "node-name", cfg.NodeRegistration.Name,
 		`Specify the node name`,
+	)
+	cmd.Flags().StringVar(
+		&cfg.NodeRegistration.CRISocket, "cri-socket", cfg.NodeRegistration.CRISocket,
+		`Specify the CRI socket to connect to.`,
 	)
 	cmd.Flags().StringVar(
 		&token, "token", token,
