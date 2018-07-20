@@ -14,24 +14,25 @@ pre-k merge master-config [flags]
 
 ```
       --apiserver-advertise-address string   The IP address the API Server will advertise it's listening on. 0.0.0.0 means the default network interface's address.
-      --apiserver-bind-port int32            Port for the API Server to bind to
+      --apiserver-bind-port int32            Port for the API Server to bind to (default 6443)
       --apiserver-cert-extra-sans strings    Optional extra altnames to use for the API Server serving cert. Can be both IP addresses and dns names.
-      --cert-dir string                      The path where to save and store the certificates
+      --cert-dir string                      The path where to save and store the certificates (default "/etc/kubernetes/pki")
       --config string                        Path to kubeadm config file (WARNING: Usage of a configuration file is experimental)
+      --cri-socket string                    Specify the CRI socket to connect to. (default "/var/run/dockershim.sock")
       --etcd-server string                   Etcd server address to join member, example: 127.0.0.1
       --feature-gates string                 A set of key=value pairs that describe feature gates for various features. Options are:
                                              Auditing=true|false (ALPHA - default=false)
-                                             CoreDNS=true|false (BETA - default=false)
+                                             CoreDNS=true|false (default=true)
                                              DynamicKubeletConfig=true|false (ALPHA - default=false)
                                              SelfHosting=true|false (ALPHA - default=false)
                                              StoreCertsInSecrets=true|false (ALPHA - default=false)
       --ha                                   Enable to apply ha cluster
   -h, --help                                 help for master-config
-      --kubernetes-version string            Choose a specific Kubernetes version for the control plane
+      --kubernetes-version string            Choose a specific Kubernetes version for the control plane (default "stable-1.11")
       --node-name string                     Specify the node name
       --pod-network-cidr string              Specify range of IP addresses for the pod network; if set, the control plane will automatically allocate CIDRs for every node
-      --service-cidr string                  Use alternative range of IP address for service VIPs
-      --service-dns-domain string            Use alternative domain for services, e.g. "myorg.internal"
+      --service-cidr string                  Use alternative range of IP address for service VIPs (default "10.96.0.0/12")
+      --service-dns-domain string            Use alternative domain for services, e.g. "myorg.internal" (default "cluster.local")
       --tls-enabled                          Enable tls to secure etcd (default true)
       --token string                         The token to use for establishing bidirectional trust between nodes and masters.
       --token-ttl duration                   The duration before the bootstrap token is automatically deleted. 0 means 'never expires'.

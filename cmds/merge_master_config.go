@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"os"
 	"strings"
+	"time"
 
 	"github.com/appscode/go/net"
 	"github.com/appscode/mergo"
@@ -13,24 +14,26 @@ import (
 	"github.com/spf13/cobra"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/util/sets"
-	kubeadmapi "k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1alpha1"
+	kubeadmapi "k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1alpha2"
 	"k8s.io/kubernetes/cmd/kubeadm/app/features"
+	kubeadmutil "k8s.io/kubernetes/cmd/kubeadm/app/util"
 )
 
 func NewCmdMergeMasterConfig() *cobra.Command {
 	var (
-		cfg = &kubeadmapi.MasterConfiguration{
-			TokenTTL: &metav1.Duration{
-				Duration: 0,
-			},
-		}
+		cfg        = &kubeadmapi.MasterConfiguration{}
 		sans       []string
 		isHa       bool
 		tlsEnabled bool
+		token      string
+		tokenTTL   time.Duration = 0
 	)
 	var cfgPath string
 	var etcdServerAddress string
 	var featureGatesString string
+
+	kubeadmapi.SetDefaults_MasterConfiguration(cfg)
+
 	cmd := &cobra.Command{
 		Use:               "master-config",
 		Short:             `Merge Kubeadm master configuration`,
@@ -40,8 +43,24 @@ func NewCmdMergeMasterConfig() *cobra.Command {
 			if cfg.FeatureGates, err = features.NewFeatureGate(&features.InitFeatureGates, featureGatesString); err != nil {
 				os.Exit(1)
 			}
+			if token != "" {
+				bt, err := kubeadmapi.NewBootstrapTokenString(token)
+				if err != nil {
+					Fatal(err)
+				}
+				cfg.BootstrapTokens = []kubeadmapi.BootstrapToken{
+					{
+						Token: bt,
+						TTL: &metav1.Duration{
+							tokenTTL,
+						},
+					},
+				}
+			}
 
 			sanSet := sets.NewString(sans...)
+
+			kubeadmutil.CheckErr(err)
 
 			if cfgPath != "" {
 				data, err := ioutil.ReadFile(cfgPath)
@@ -55,14 +74,12 @@ func NewCmdMergeMasterConfig() *cobra.Command {
 				}
 				sanSet.Insert(in.APIServerCertSANs...)
 
-				err = mergo.Merge(cfg, in)
+				err = mergo.MergeWithOverwrite(cfg, in)
 				if err != nil {
 					Fatal(err)
 				}
 			}
 
-			cfg.APIVersion = "kubeadm.k8s.io/v1alpha1"
-			cfg.Kind = "MasterConfiguration"
 			cfg.APIServerCertSANs = sanSet.List()
 			if isHa {
 				ips, _, err := net.RoutableIPs()
@@ -77,8 +94,8 @@ func NewCmdMergeMasterConfig() *cobra.Command {
 					etcdServerAddress = nodeIp
 				}
 				extraArgs := map[string]string{
-					"name":                        cfg.NodeName,
-					"data-dir":                    fmt.Sprintf("/var/lib/etcd/%v", cfg.NodeName),
+					//	"name":                        cfg.NodeName,
+					//	"data-dir":                    fmt.Sprintf("/var/lib/etcd/%v", cfg.NodeName),
 					"listen-client-urls":          fmt.Sprintf("%s://0.0.0.0:2379", Scheme(tlsEnabled)),
 					"advertise-client-urls":       fmt.Sprintf("%s://%s:2379", Scheme(tlsEnabled), nodeIp),
 					"listen-peer-urls":            fmt.Sprintf("%s://%s:2380", Scheme(tlsEnabled), nodeIp),
@@ -87,7 +104,7 @@ func NewCmdMergeMasterConfig() *cobra.Command {
 					"v":              "3",
 					"server-address": etcdServerAddress,
 				}
-				cfg.Etcd.ExtraArgs = extraArgs
+				cfg.Etcd.Local.ExtraArgs = extraArgs
 			}
 			data, err := yaml.Marshal(cfg)
 			if err != nil {
@@ -131,15 +148,19 @@ func NewCmdMergeMasterConfig() *cobra.Command {
 		`Optional extra altnames to use for the API Server serving cert. Can be both IP addresses and dns names.`,
 	)
 	cmd.Flags().StringVar(
-		&cfg.NodeName, "node-name", cfg.NodeName,
+		&cfg.NodeRegistration.Name, "node-name", cfg.NodeRegistration.Name,
 		`Specify the node name`,
 	)
 	cmd.Flags().StringVar(
-		&cfg.Token, "token", cfg.Token,
+		&cfg.NodeRegistration.CRISocket, "cri-socket", cfg.NodeRegistration.CRISocket,
+		`Specify the CRI socket to connect to.`,
+	)
+	cmd.Flags().StringVar(
+		&token, "token", token,
 		"The token to use for establishing bidirectional trust between nodes and masters.",
 	)
 	cmd.Flags().DurationVar(
-		&cfg.TokenTTL.Duration, "token-ttl", cfg.TokenTTL.Duration,
+		&tokenTTL, "token-ttl", tokenTTL,
 		"The duration before the bootstrap token is automatically deleted. 0 means 'never expires'.",
 	)
 	cmd.Flags().StringVar(&featureGatesString, "feature-gates", featureGatesString, "A set of key=value pairs that describe feature gates for various features. "+

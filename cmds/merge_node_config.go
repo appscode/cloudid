@@ -8,7 +8,7 @@ import (
 	"github.com/appscode/mergo"
 	"github.com/ghodss/yaml"
 	"github.com/spf13/cobra"
-	kubeadmapi "k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1alpha1"
+	kubeadmapi "k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1alpha2"
 )
 
 func NewCmdMergeNodeConfig() *cobra.Command {
@@ -36,7 +36,7 @@ func NewCmdMergeNodeConfig() *cobra.Command {
 				}
 			}
 
-			cfg.APIVersion = "kubeadm.k8s.io/v1alpha1"
+			cfg.APIVersion = "kubeadm.k8s.io/v1alpha2"
 			cfg.Kind = "NodeConfiguration"
 			data, err := yaml.Marshal(cfg)
 			if err != nil {
@@ -58,7 +58,7 @@ func NewCmdMergeNodeConfig() *cobra.Command {
 		&cfg.DiscoveryToken, "discovery-token", "",
 		"A token used to validate cluster information fetched from the master")
 	cmd.PersistentFlags().StringVar(
-		&cfg.NodeName, "node-name", "",
+		&cfg.NodeRegistration.Name, "node-name", "",
 		"Specify the node name")
 	cmd.PersistentFlags().StringVar(
 		&cfg.TLSBootstrapToken, "tls-bootstrap-token", "",
