@@ -10,7 +10,7 @@ import:
   version: v1.0.0
 - package: github.com/golang/glog
 - package: github.com/kubepack/onessl
-  version: 0.7.0
+  version: 0.8.0
 - package: github.com/jpillora/go-ogle-analytics
 - package: github.com/pkg/errors
   version: v0.8.0
@@ -21,11 +21,11 @@ import:
 - package: k8s.io/apimachinery
   repo: https://github.com/pharmer/apimachinery.git
   vcs: git
-  version: release-1.11
+  version: release-1.11.3
 - package: k8s.io/client-go
-  version: v8.0.0
+  version: kubernetes-1.11.3
 - package: k8s.io/kubernetes
-  version: v1.11.0
+  version: v1.11.3
 - package: github.com/appscode/kutil
   version: release-8.0
 - package: golang.org/x/crypto

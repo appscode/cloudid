@@ -30,12 +30,12 @@ func NewCmdCreatePeer(certDir string) *cobra.Command {
 				log.Fatalln("Multiple peer name found.")
 			}
 			if len(args) == 0 {
-				args = []string{"peer"}
+				sans.DNSNames = merge("peer", sans.DNSNames)
+			} else if len(args) == 1 {
+				sans.DNSNames = merge(args[0], sans.DNSNames)
 			}
-
 			cfg := cert.Config{
-				CommonName: args[0],
-				AltNames:   sans,
+				AltNames: sans,
 			}
 
 			store, err := certstore.NewCertStore(afero.NewOsFs(), certDir, org...)
@@ -58,12 +58,12 @@ func NewCmdCreatePeer(certDir string) *cobra.Command {
 				os.Exit(1)
 			}
 
-			crt, key, err := store.NewPeerCertPair(cfg.CommonName, cfg.AltNames)
+			crt, key, err := store.NewPeerCertPair(cfg.AltNames)
 			if err != nil {
 				fmt.Printf("Failed to generate peer certificate pair. Reason: %v.", err)
 				os.Exit(1)
 			}
-			err = store.WriteBytes(Filename(cfg), crt, key)
+			err = store.Write(Filename(cfg), crt, key)
 			if err != nil {
 				fmt.Printf("Failed to init peer certificate pair. Reason: %v.", err)
 				os.Exit(1)
