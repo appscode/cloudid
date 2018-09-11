@@ -101,8 +101,8 @@ func NewCmdMergeMasterConfig() *cobra.Command {
 					"listen-peer-urls":            fmt.Sprintf("%s://%s:2380", Scheme(tlsEnabled), nodeIp),
 					"initial-advertise-peer-urls": fmt.Sprintf("%s://%s:2380", Scheme(tlsEnabled), nodeIp),
 					"quota-backend-bytes":         "2147483648",
-					"v":              "3",
-					"server-address": etcdServerAddress,
+					"v":                           "3",
+					"server-address":              etcdServerAddress,
 				}
 				cfg.Etcd.Local.ExtraArgs = extraArgs
 			}
