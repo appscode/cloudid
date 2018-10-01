@@ -10,7 +10,7 @@ import:
   version: v1.0.0
 - package: github.com/golang/glog
 - package: github.com/kubepack/onessl
-  version: 0.8.0
+  version: k-1.12
 - package: github.com/jpillora/go-ogle-analytics
 - package: github.com/pkg/errors
   version: v0.8.0
@@ -18,15 +18,33 @@ import:
   version: v0.0.3
 - package: github.com/spf13/pflag
   version: v1.0.1
+- package: k8s.io/api
+  repo: https://github.com/pharmer/api.git
+  vcs: git
+  version: ac-1.12.0
 - package: k8s.io/apimachinery
   repo: https://github.com/pharmer/apimachinery.git
   vcs: git
-  version: release-1.11.3
+  version: ac-1.12.0
 - package: k8s.io/client-go
-  version: kubernetes-1.11.3
+  repo: https://github.com/pharmer/client-go.git
+  vcs: git
+  version: ac-1.12.0
 - package: k8s.io/kubernetes
-  version: v1.11.3
+  version: v1.12.0
 - package: github.com/appscode/kutil
-  version: release-8.0
+  version: k-1.12
+- package: gopkg.in/square/go-jose.v2
+  version: v2.1.9
+- package: github.com/Azure/azure-sdk-for-go
+  version: v19.0.0
+- package: github.com/Azure/go-autorest
+  version: v10.14.0
+- package: golang.org/x/text
+  version: b19bf474d317b857955b12035d2c5acb57ce8b01
+- package: golang.org/x/net
+  version: 1c05540f6879653db88113bc4a2b70aec4bd491f
+- package: golang.org/x/sys
+  version: 95c6576299259db960f6c5b9b69ea52422860fce
 - package: golang.org/x/crypto
-  version: 49796115aa4b964c318aad4f3084fdb41e9aa067
+  version: de0752318171da717af4ce24d0a2e8626afaeb11
