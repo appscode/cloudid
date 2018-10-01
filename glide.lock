@@ -1,5 +1,5 @@
 hash: d8820877746f02eabea7db9b7f1ada9975343233f639d66a01569de4c8d23925
-updated: 2018-10-01T00:20:01.965789458-07:00
+updated: 2018-10-01T18:00:57.156324243+06:00
 imports:
 - name: cloud.google.com/go
   version: 3b1ae45394a234c385be014e9a488f2bb6eef821
@@ -51,9 +51,9 @@ imports:
   - autorest/date
   - version
 - name: github.com/cenkalti/backoff
-  version: 2ea60e5f094469f9e65adb9cd103795b73ae743e
+  version: 61153c768f31ee5f130071d08fc82b85208528de
 - name: github.com/cpuguy83/go-md2man
-  version: 20f5889cbdc3c73dbd2862796665e7c465ade7d1
+  version: 71acacd42f85e5e82f70a55327789582a5200a90
   subpackages:
   - md2man
 - name: github.com/davecgh/go-spew
@@ -155,14 +155,14 @@ imports:
 - name: github.com/google/btree
   version: 7d79101e329e5a3adf994758c578dab82b90c017
 - name: github.com/google/go-cmp
-  version: 875f8df8b7965f1eac1098d36d677f807ac0b49e
+  version: 3af367b6b30c263d47e8895973edcca9a49cf029
   subpackages:
   - cmp
   - cmp/internal/diff
   - cmp/internal/function
   - cmp/internal/value
 - name: github.com/google/go-querystring
-  version: 44c6ddd0a2342c386950e880b658017258da92fc
+  version: 53e6ce116135b80d037921a7fdd5138cf32d7a8a
   subpackages:
   - query
 - name: github.com/google/gofuzz
@@ -242,7 +242,8 @@ imports:
 - name: github.com/russross/blackfriday
   version: 300106c228d52c8941d4b3de6054a6062a86dda3
 - name: github.com/sergi/go-diff
-  version: 97b2266dfe4bd4ea1b81a463322f04f8b724801e
+  version: 24e2351369ec4949b2ed0dc5c477afdd4c4034e8
+  repo: https://github.com/sergi/go-diff
   subpackages:
   - diffmatchpatch
 - name: github.com/shurcooL/sanitized_anchor_name
@@ -260,11 +261,12 @@ imports:
 - name: github.com/spf13/pflag
   version: 583c0c0531f06d5278b7d917446061adc344b5cd
 - name: github.com/yudai/gojsondiff
-  version: 7b1b7adf999dab73a6eb02669c3d82dbb27a3dd6
+  version: e21612694bdd50975f93cd5eaccb457477128e28
   subpackages:
   - formatter
 - name: github.com/yudai/golcs
   version: d1c525dea8ce39ea9a783d33cf08932305373f2c
+  repo: https://github.com/yudai/golcs
 - name: golang.org/x/crypto
   version: de0752318171da717af4ce24d0a2e8626afaeb11
   subpackages:
@@ -317,7 +319,7 @@ imports:
   subpackages:
   - rate
 - name: google.golang.org/appengine
-  version: 12d5545dc1cfa6047a286d5e853841b6471f4c19
+  version: 4f7eeb5305a4ba1966344836ba4af9996b7b4e05
   subpackages:
   - internal
   - internal/app_identity
@@ -576,13 +578,15 @@ imports:
   version: 0ed33881dc4355495f623c6f22e7dd0b7632b7c0
   subpackages:
   - cmd/kubeadm/app/apis/kubeadm
-  - cmd/kubeadm/app/apis/kubeadm/v1alpha1
+  - cmd/kubeadm/app/apis/kubeadm/scheme
   - cmd/kubeadm/app/apis/kubeadm/v1alpha2
   - cmd/kubeadm/app/apis/kubeadm/v1alpha3
+  - cmd/kubeadm/app/apis/kubeadm/validation
   - cmd/kubeadm/app/componentconfigs
   - cmd/kubeadm/app/constants
   - cmd/kubeadm/app/features
   - cmd/kubeadm/app/util
+  - cmd/kubeadm/app/util/config
   - pkg/api/events
   - pkg/api/legacyscheme
   - pkg/api/pod

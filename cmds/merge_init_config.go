@@ -2,26 +2,25 @@ package cmds
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 	"strings"
 	"time"
 
 	"github.com/appscode/go/net"
-	"github.com/appscode/mergo"
 	"github.com/ghodss/yaml"
 	. "github.com/pharmer/pre-k/lib"
 	"github.com/spf13/cobra"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/util/sets"
-	kubeadmapi "k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1alpha2"
+	kubeadmapi "k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1alpha3"
 	"k8s.io/kubernetes/cmd/kubeadm/app/features"
 	kubeadmutil "k8s.io/kubernetes/cmd/kubeadm/app/util"
+	configutil "k8s.io/kubernetes/cmd/kubeadm/app/util/config"
 )
 
 func NewCmdMergeMasterConfig() *cobra.Command {
 	var (
-		cfg        = &kubeadmapi.MasterConfiguration{}
+		cfg        = &kubeadmapi.InitConfiguration{}
 		sans       []string
 		isHa       bool
 		tlsEnabled bool
@@ -32,11 +31,11 @@ func NewCmdMergeMasterConfig() *cobra.Command {
 	var etcdServerAddress string
 	var featureGatesString string
 
-	kubeadmapi.SetDefaults_MasterConfiguration(cfg)
+	kubeadmapi.SetDefaults_InitConfiguration(cfg)
 
 	cmd := &cobra.Command{
-		Use:               "master-config",
-		Short:             `Merge Kubeadm master configuration`,
+		Use:               "init-config",
+		Short:             `Merge Kubeadm initial configuration`,
 		DisableAutoGenTag: true,
 		Run: func(cmd *cobra.Command, args []string) {
 			var err error
@@ -63,11 +62,13 @@ func NewCmdMergeMasterConfig() *cobra.Command {
 			kubeadmutil.CheckErr(err)
 
 			if cfgPath != "" {
-				data, err := ioutil.ReadFile(cfgPath)
+				cfg, err = configutil.ConfigFileAndDefaultsToInternalConfig(cfgPath, cfg)
+				fmt.Println(err)
+				/*data, err := ioutil.ReadFile(cfgPath)
 				if err != nil {
 					Fatal(err)
 				}
-				var in kubeadmapi.MasterConfiguration
+				var in kubeadmapi.InitConfiguration
 				err = yaml.Unmarshal(data, &in)
 				if err != nil {
 					Fatal(err)
@@ -77,7 +78,7 @@ func NewCmdMergeMasterConfig() *cobra.Command {
 				err = mergo.MergeWithOverwrite(cfg, in)
 				if err != nil {
 					Fatal(err)
-				}
+				}*/
 			}
 
 			cfg.APIServerCertSANs = sanSet.List()
@@ -116,11 +117,11 @@ func NewCmdMergeMasterConfig() *cobra.Command {
 	}
 	// ref: https://github.com/kubernetes/kubernetes/blob/0b9efaeb34a2fc51ff8e4d34ad9bc6375459c4a4/cmd/kubeadm/app/cmd/init.go#L141
 	cmd.Flags().StringVar(
-		&cfg.API.AdvertiseAddress, "apiserver-advertise-address", cfg.API.AdvertiseAddress,
+		&cfg.APIEndpoint.AdvertiseAddress, "apiserver-advertise-address", cfg.APIEndpoint.AdvertiseAddress,
 		"The IP address the API Server will advertise it's listening on. 0.0.0.0 means the default network interface's address.",
 	)
 	cmd.Flags().Int32Var(
-		&cfg.API.BindPort, "apiserver-bind-port", cfg.API.BindPort,
+		&cfg.APIEndpoint.BindPort, "apiserver-bind-port", cfg.APIEndpoint.BindPort,
 		"Port for the API Server to bind to",
 	)
 	cmd.Flags().StringVar(

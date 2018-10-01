@@ -8,11 +8,11 @@ import (
 	"github.com/appscode/mergo"
 	"github.com/ghodss/yaml"
 	"github.com/spf13/cobra"
-	kubeadmapi "k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1alpha2"
+	kubeadmapi "k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1alpha3"
 )
 
 func NewCmdMergeNodeConfig() *cobra.Command {
-	cfg := &kubeadmapi.NodeConfiguration{}
+	cfg := &kubeadmapi.JoinConfiguration{}
 	var cfgPath string
 	cmd := &cobra.Command{
 		Use:               "node-config",
@@ -24,7 +24,7 @@ func NewCmdMergeNodeConfig() *cobra.Command {
 				if err != nil {
 					Fatal(err)
 				}
-				var in kubeadmapi.NodeConfiguration
+				var in kubeadmapi.JoinConfiguration
 				err = yaml.Unmarshal(data, &in)
 				if err != nil {
 					Fatal(err)
