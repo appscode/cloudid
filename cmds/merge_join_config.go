@@ -15,7 +15,7 @@ func NewCmdMergeNodeConfig() *cobra.Command {
 	cfg := &kubeadmapi.JoinConfiguration{}
 	var cfgPath string
 	cmd := &cobra.Command{
-		Use:               "node-config",
+		Use:               "join-config",
 		Short:             `Merge Kubeadm node configuration`,
 		DisableAutoGenTag: true,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -36,8 +36,8 @@ func NewCmdMergeNodeConfig() *cobra.Command {
 				}
 			}
 
-			cfg.APIVersion = "kubeadm.k8s.io/v1alpha2"
-			cfg.Kind = "NodeConfiguration"
+			cfg.APIVersion = "kubeadm.k8s.io/v1alpha3"
+			cfg.Kind = "JoinConfiguration"
 			data, err := yaml.Marshal(cfg)
 			if err != nil {
 				Fatal(err)
