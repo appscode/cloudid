@@ -11,7 +11,7 @@ import (
 	"k8s.io/client-go/kubernetes"
 )
 
-func NewCmdHasysSecret(clientGetter genericclioptions.RESTClientGetter) *cobra.Command {
+func NewCmdHasKeysSecret(clientGetter genericclioptions.RESTClientGetter) *cobra.Command {
 	var (
 		keys []string
 	)

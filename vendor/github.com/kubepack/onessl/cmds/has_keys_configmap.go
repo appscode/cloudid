@@ -11,7 +11,7 @@ import (
 	"k8s.io/client-go/kubernetes"
 )
 
-func NewCmdHasysConfigMap(clientGetter genericclioptions.RESTClientGetter) *cobra.Command {
+func NewCmdHasKeysConfigMap(clientGetter genericclioptions.RESTClientGetter) *cobra.Command {
 	var (
 		keys []string
 	)
