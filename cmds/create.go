@@ -3,7 +3,7 @@ package cmds
 import (
 	onessl "github.com/kubepack/onessl/cmds"
 	"github.com/spf13/cobra"
-	kubeadmapi "k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1alpha1"
+	kubeadmapi "k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1alpha3"
 )
 
 func NewCmdCreate() *cobra.Command {
