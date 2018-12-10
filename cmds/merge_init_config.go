@@ -12,7 +12,7 @@ import (
 	"github.com/spf13/cobra"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/util/sets"
-	kubeadmapi "k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1alpha3"
+	kubeadmapi "k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta1"
 	"k8s.io/kubernetes/cmd/kubeadm/app/features"
 	kubeadmutil "k8s.io/kubernetes/cmd/kubeadm/app/util"
 )
@@ -91,14 +91,14 @@ func NewCmdMergeMasterConfig() *cobra.Command {
 					Fatal(err)
 				}
 
-				sanSet.Insert(in.APIServerCertSANs...)
+				sanSet.Insert(in.APIServer.CertSANs...)
 				err = mergo.MergeWithOverwrite(clusterCfg, in)
 				if err != nil {
 					Fatal(err)
 				}
 			}
 
-			clusterCfg.APIServerCertSANs = sanSet.List()
+			clusterCfg.APIServer.CertSANs = sanSet.List()
 
 			initData, err := yaml.Marshal(initCfg)
 			if err != nil {
@@ -117,11 +117,11 @@ func NewCmdMergeMasterConfig() *cobra.Command {
 	}
 	// ref: https://github.com/kubernetes/kubernetes/blob/0b9efaeb34a2fc51ff8e4d34ad9bc6375459c4a4/cmd/kubeadm/app/cmd/init.go#L141
 	cmd.Flags().StringVar(
-		&initCfg.APIEndpoint.AdvertiseAddress, "apiserver-advertise-address", initCfg.APIEndpoint.AdvertiseAddress,
+		&initCfg.LocalAPIEndpoint.AdvertiseAddress, "apiserver-advertise-address", initCfg.LocalAPIEndpoint.AdvertiseAddress,
 		"The IP address the API Server will advertise it's listening on. 0.0.0.0 means the default network interface's address.",
 	)
 	cmd.Flags().Int32Var(
-		&initCfg.APIEndpoint.BindPort, "apiserver-bind-port", initCfg.APIEndpoint.BindPort,
+		&initCfg.LocalAPIEndpoint.BindPort, "apiserver-bind-port", initCfg.LocalAPIEndpoint.BindPort,
 		"Port for the API Server to bind to",
 	)
 	cmd.Flags().StringVar(
