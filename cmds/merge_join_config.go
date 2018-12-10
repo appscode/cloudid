@@ -8,19 +8,63 @@ import (
 	"github.com/appscode/mergo"
 	"github.com/ghodss/yaml"
 	"github.com/spf13/cobra"
-	kubeadmapi "k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1alpha3"
+	"k8s.io/klog"
+	kubeadmapi "k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta1"
 )
 
 func NewCmdMergeNodeConfig() *cobra.Command {
-	cfg := &kubeadmapi.JoinConfiguration{}
-	var cfgPath string
+	joinCfg := &kubeadmapi.JoinConfiguration{}
+	initCfg := &kubeadmapi.InitConfiguration{}
+
+	fd := &kubeadmapi.FileDiscovery{}
+	btd := &kubeadmapi.BootstrapTokenDiscovery{}
+
+	var initCfgPath, joinCfgPath, token string
 	cmd := &cobra.Command{
 		Use:               "join-config",
 		Short:             `Merge Kubeadm node configuration`,
 		DisableAutoGenTag: true,
 		Run: func(cmd *cobra.Command, args []string) {
-			if cfgPath != "" {
-				data, err := ioutil.ReadFile(cfgPath)
+			if len(fd.KubeConfigPath) != 0 {
+				joinCfg.Discovery.File = fd
+			} else {
+				joinCfg.Discovery.BootstrapToken = btd
+				if len(joinCfg.Discovery.BootstrapToken.Token) == 0 {
+					joinCfg.Discovery.BootstrapToken.Token = token
+				}
+				if len(args) > 0 {
+					if len(joinCfgPath) == 0 && len(args) > 1 {
+						klog.Warningf("[join] WARNING: More than one API server endpoint supplied on command line %v. Using the first one.", args)
+					}
+					joinCfg.Discovery.BootstrapToken.APIServerEndpoint = args[0]
+				}
+			}
+			if len(joinCfg.Discovery.TLSBootstrapToken) == 0 {
+				joinCfg.Discovery.TLSBootstrapToken = token
+			}
+
+			if initCfgPath != "" {
+				data, err := ioutil.ReadFile(initCfgPath)
+				if err != nil {
+					Fatal(err)
+				}
+				var in kubeadmapi.InitConfiguration
+				err = yaml.Unmarshal(data, &in)
+				if err != nil {
+					Fatal(err)
+				}
+
+				err = mergo.MergeWithOverwrite(initCfg, in)
+				if err != nil {
+					Fatal(err)
+				}
+				if initCfg.LocalAPIEndpoint.AdvertiseAddress == "" {
+					initCfg.LocalAPIEndpoint.AdvertiseAddress = "kube-apiserver"
+				}
+			}
+
+			if joinCfgPath != "" {
+				data, err := ioutil.ReadFile(joinCfgPath)
 				if err != nil {
 					Fatal(err)
 				}
@@ -30,48 +74,64 @@ func NewCmdMergeNodeConfig() *cobra.Command {
 					Fatal(err)
 				}
 
-				err = mergo.Merge(cfg, in)
+				err = mergo.Merge(joinCfg, in)
 				if err != nil {
 					Fatal(err)
 				}
 			}
 
-			cfg.APIVersion = "kubeadm.k8s.io/v1alpha3"
-			cfg.Kind = "JoinConfiguration"
-			data, err := yaml.Marshal(cfg)
+			initData, err := yaml.Marshal(initCfg)
 			if err != nil {
 				Fatal(err)
 			}
+			fmt.Println(string(initData))
+
+			joinCfg.APIVersion = "kubeadm.k8s.io/v1beta1"
+			joinCfg.Kind = "JoinConfiguration"
+			data, err := yaml.Marshal(joinCfg)
+			if err != nil {
+				Fatal(err)
+			}
+			fmt.Println("---")
 			fmt.Println(string(data))
 			os.Exit(0)
 		},
 	}
 	// ref: https://github.com/kubernetes/kubernetes/blob/0b9efaeb34a2fc51ff8e4d34ad9bc6375459c4a4/cmd/kubeadm/app/cmd/join.go#L122
 	cmd.PersistentFlags().StringVar(
-		&cfgPath, "config", cfgPath,
+		&joinCfgPath, "join-config", joinCfgPath,
 		"Path to kubeadm config file")
 
+	cmd.Flags().StringVar(&initCfgPath, "init-config", initCfgPath, "Path to kubeadm init config file (WARNING: Usage of a configuration file is experimental)")
+
 	cmd.PersistentFlags().StringVar(
-		&cfg.DiscoveryFile, "discovery-file", "",
+		&fd.KubeConfigPath, "discovery-file", "",
 		"A file or url from which to load cluster information")
+
 	cmd.PersistentFlags().StringVar(
-		&cfg.DiscoveryToken, "discovery-token", "",
+		&btd.Token, "discovery-token", "",
 		"A token used to validate cluster information fetched from the master")
-	cmd.PersistentFlags().StringVar(
-		&cfg.NodeRegistration.Name, "node-name", "",
-		"Specify the node name")
-	cmd.PersistentFlags().StringVar(
-		&cfg.TLSBootstrapToken, "tls-bootstrap-token", "",
-		"A token used for TLS bootstrapping")
 	cmd.PersistentFlags().StringSliceVar(
-		&cfg.DiscoveryTokenCACertHashes, "discovery-token-ca-cert-hash", []string{},
+		&btd.CACertHashes, "discovery-token-ca-cert-hash", []string{},
 		"For token-based discovery, validate that the root CA public key matches this hash (format: \"<type>:<value>\").")
 	cmd.PersistentFlags().BoolVar(
-		&cfg.DiscoveryTokenUnsafeSkipCAVerification, "discovery-token-unsafe-skip-ca-verification", false,
+		&btd.UnsafeSkipCAVerification, "discovery-token-unsafe-skip-ca-verification", false,
 		"For token-based discovery, allow joining without --discovery-token-ca-cert-hash pinning.")
 
 	cmd.PersistentFlags().StringVar(
-		&cfg.Token, "token", "",
+		&joinCfg.Discovery.TLSBootstrapToken, "tls-bootstrap-token", "",
+		"A token used for TLS bootstrapping")
+
+	cmd.PersistentFlags().StringVar(
+		&joinCfg.NodeRegistration.Name, "node-name", joinCfg.NodeRegistration.Name,
+		"Specify the node name.")
+	cmd.PersistentFlags().StringVar(
+		&joinCfg.NodeRegistration.CRISocket, "cri-socket", joinCfg.NodeRegistration.CRISocket,
+		`Specify the CRI socket to connect to.`,
+	)
+
+	cmd.PersistentFlags().StringVar(
+		&token, "token", "",
 		"Use this token for both discovery-token and tls-bootstrap-token")
 
 	return cmd
