@@ -9,6 +9,7 @@ import (
 	ga "github.com/jpillora/go-ogle-analytics"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
+	"kmodules.xyz/client-go/logs"
 )
 
 const (
@@ -37,8 +38,7 @@ func NewRootCmd(version string) *cobra.Command {
 	}
 	rootCmd.PersistentFlags().BoolVar(&enableAnalytics, "analytics", enableAnalytics, "Send analytical events to Google Guard")
 	rootCmd.PersistentFlags().AddGoFlagSet(flag.CommandLine)
-	// ref: https://github.com/kubernetes/kubernetes/issues/17162#issuecomment-225596212
-	flag.CommandLine.Parse([]string{})
+	logs.ParseFlags()
 
 	rootCmd.AddCommand(NewCmdCreate())
 	rootCmd.AddCommand(NewCmdCheck())
