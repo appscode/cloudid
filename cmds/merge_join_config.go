@@ -5,8 +5,8 @@ import (
 	"io/ioutil"
 	"os"
 
-	"github.com/appscode/mergo"
 	"github.com/ghodss/yaml"
+	"github.com/imdario/mergo"
 	"github.com/spf13/cobra"
 	"k8s.io/klog"
 	kubeadmapi "k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta1"

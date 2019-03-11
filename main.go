@@ -3,8 +3,8 @@ package main
 import (
 	"os"
 
-	logs "github.com/appscode/go/log/golog"
 	"github.com/pharmer/pre-k/cmds"
+	"kmodules.xyz/client-go/logs"
 )
 
 func main() {
@@ -14,5 +14,4 @@ func main() {
 	if err := cmds.NewRootCmd(Version).Execute(); err != nil {
 		os.Exit(1)
 	}
-	os.Exit(0)
 }

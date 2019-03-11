@@ -7,8 +7,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/appscode/mergo"
 	"github.com/ghodss/yaml"
+	"github.com/imdario/mergo"
 	"github.com/spf13/cobra"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/util/sets"

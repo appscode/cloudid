@@ -5,7 +5,6 @@ import (
 	"time"
 
 	"github.com/appscode/go/log"
-	core_util "github.com/appscode/kutil/core/v1"
 	"github.com/spf13/cobra"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/labels"
@@ -13,6 +12,7 @@ import (
 	"k8s.io/client-go/kubernetes"
 	_ "k8s.io/client-go/plugin/pkg/client/auth"
 	"k8s.io/client-go/tools/clientcmd"
+	core_util "kmodules.xyz/client-go/core/v1"
 )
 
 func NewCmdCheckMasterStatus() *cobra.Command {
