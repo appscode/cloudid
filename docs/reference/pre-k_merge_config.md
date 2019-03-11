@@ -1,13 +1,13 @@
-## pre-k merge master-config
+## pre-k merge config
 
-Merge Kubeadm master configuration
+Merge Kubeadm initial configuration
 
 ### Synopsis
 
-Merge Kubeadm master configuration
+Merge Kubeadm initial configuration
 
 ```
-pre-k merge master-config [flags]
+pre-k merge config [flags]
 ```
 
 ### Options
@@ -17,18 +17,15 @@ pre-k merge master-config [flags]
       --apiserver-bind-port int32            Port for the API Server to bind to (default 6443)
       --apiserver-cert-extra-sans strings    Optional extra altnames to use for the API Server serving cert. Can be both IP addresses and dns names.
       --cert-dir string                      The path where to save and store the certificates (default "/etc/kubernetes/pki")
-      --config string                        Path to kubeadm config file (WARNING: Usage of a configuration file is experimental)
+      --cluster-config string                Path to kubeadm cluster config file (WARNING: Usage of a configuration file is experimental)
       --cri-socket string                    Specify the CRI socket to connect to. (default "/var/run/dockershim.sock")
       --etcd-server string                   Etcd server address to join member, example: 127.0.0.1
       --feature-gates string                 A set of key=value pairs that describe feature gates for various features. Options are:
-                                             Auditing=true|false (ALPHA - default=false)
-                                             CoreDNS=true|false (default=true)
-                                             DynamicKubeletConfig=true|false (ALPHA - default=false)
-                                             SelfHosting=true|false (ALPHA - default=false)
-                                             StoreCertsInSecrets=true|false (ALPHA - default=false)
+                                             
       --ha                                   Enable to apply ha cluster
-  -h, --help                                 help for master-config
-      --kubernetes-version string            Choose a specific Kubernetes version for the control plane (default "stable-1.11")
+  -h, --help                                 help for config
+      --init-config string                   Path to kubeadm init config file (WARNING: Usage of a configuration file is experimental)
+      --kubernetes-version string            Choose a specific Kubernetes version for the control plane (default "stable-1")
       --node-name string                     Specify the node name
       --pod-network-cidr string              Specify range of IP addresses for the pod network; if set, the control plane will automatically allocate CIDRs for every node
       --service-cidr string                  Use alternative range of IP address for service VIPs (default "10.96.0.0/12")
@@ -43,10 +40,11 @@ pre-k merge master-config [flags]
 ```
       --alsologtostderr                  log to standard error as well as files
       --analytics                        Send analytical events to Google Guard (default true)
+      --log-flush-frequency duration     Maximum number of seconds between log flushes (default 5s)
       --log_backtrace_at traceLocation   when logging hits line file:N, emit a stack trace (default :0)
       --log_dir string                   If non-empty, write log files in this directory
       --logtostderr                      log to standard error instead of files
-      --stderrthreshold severity         logs at or above this threshold go to stderr (default 2)
+      --stderrthreshold severity         logs at or above this threshold go to stderr
   -v, --v Level                          log level for V logs
       --vmodule moduleSpec               comma-separated list of pattern=N settings for file-filtered logging
 ```
