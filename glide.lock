@@ -1,5 +1,5 @@
-hash: a58e4af0314778a26f46a6290b25e8d3ae35b1d5097a62a3d82a51e3080e8c98
-updated: 2019-03-10T19:05:05.741820285-07:00
+hash: 73dd605e3026a21a1717fb63bb8ab65203e5f5d340b58c7e46a8c71445bb2b04
+updated: 2019-03-14T18:25:58.407178539-07:00
 imports:
 - name: cloud.google.com/go
   version: 3b1ae45394a234c385be014e9a488f2bb6eef821
@@ -101,7 +101,7 @@ imports:
   - parse
   - path
 - name: github.com/evanphx/json-patch
-  version: 36442dbdb585210f8d5a1b45e67aa323c197d5c4
+  version: 5858425f75500d40c52783dce87d085a483ce135
 - name: github.com/exponent-io/jsonpath
   version: d6023ce2651d8eafb5c75bb0c7167536102ec9f5
 - name: github.com/fatih/structs
@@ -138,10 +138,11 @@ imports:
 - name: github.com/google/btree
   version: 7d79101e329e5a3adf994758c578dab82b90c017
 - name: github.com/google/go-cmp
-  version: c81281657ad99ba22e14fda7c4dfaaf2974c454e
+  version: 6f77996f0c42f7b84e5a2b252227263f93432e9b
   subpackages:
   - cmp
   - cmp/internal/diff
+  - cmp/internal/flags
   - cmp/internal/function
   - cmp/internal/value
 - name: github.com/google/go-querystring
@@ -178,7 +179,7 @@ imports:
   subpackages:
   - simplelru
 - name: github.com/imdario/mergo
-  version: 7c29201646fa3de8506f701213473dd407f19646
+  version: 9316a62528ac99aaecb4e47eadd6dc8aa6533d58
 - name: github.com/inconshreveable/mousetrap
   version: 76626ae9c91c4f2a10f34cad8ce83ea42c93bb75
 - name: github.com/JamesClonk/vultr
@@ -215,6 +216,8 @@ imports:
   version: 5f041e8faa004a95c88a202771f4cc3e991971e6
 - name: github.com/pkg/errors
   version: 645ef00459ed84a119197bfb8d8205042c6df63d
+- name: github.com/prometheus/client_golang
+  version: 505eaef017263e299324067d40ca2c48f6a2cf50
 - name: github.com/PuerkitoBio/purell
   version: 8a290539e2e8629dbc4e6bad948158f790ec31f4
 - name: github.com/PuerkitoBio/urlesc
@@ -506,7 +509,7 @@ imports:
   - util/jsonpath
   - util/retry
 - name: k8s.io/cluster-bootstrap
-  version: 1ff925d4043a98070d75f0a6a243fe285a4dc769
+  version: 0fa624df11e9dda15d6ba720bfc2902cd94ba453
   subpackages:
   - token/api
   - token/util
@@ -556,12 +559,9 @@ imports:
 - name: k8s.io/utils
   version: 66066c83e385e385ccc3c964b44fd7dcd413d0ed
   subpackages:
-  - clock
   - exec
-  - exec/testing
-  - pointer
 - name: kmodules.xyz/client-go
-  version: 4e95b64335e75800ba52ff9e44188066da251420
+  version: fd7cc05edf46bb8d630fa6a84b875162f321e778
   subpackages:
   - core/v1
   - logs
