@@ -54,7 +54,7 @@ func NewCmdMergeMasterConfig() *cobra.Command {
 					{
 						Token: bt,
 						TTL: &metav1.Duration{
-							tokenTTL,
+							Duration: tokenTTL,
 						},
 					},
 				}
