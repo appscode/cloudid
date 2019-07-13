@@ -1,18 +1,17 @@
-module github.com/pharmer/pre-k
+module pharmer.dev/pre-k
 
 go 1.12
 
 require (
 	github.com/JamesClonk/vultr v0.0.0-20180101102256-fa1c0367800d
-	github.com/appscode/go v0.0.0-20190424183524-60025f1135c9
+	github.com/appscode/go v0.0.0-20190621064509-6b292c9166e3
 	github.com/ghodss/yaml v1.0.0
 	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b
 	github.com/imdario/mergo v0.3.7
 	github.com/jpillora/go-ogle-analytics v0.0.0-20161213085824-14b04e0594ef
 	github.com/juju/ratelimit v0.0.0-20151125201925-77ed1c8a0121 // indirect
-	github.com/kubepack/onessl v0.12.0
 	github.com/pkg/errors v0.8.1
-	github.com/spf13/cobra v0.0.3
+	github.com/spf13/cobra v0.0.5
 	github.com/spf13/pflag v1.0.3
 	gomodules.xyz/cert v1.0.0
 	k8s.io/apimachinery v0.0.0-20190424052434-11f1676e3da4
@@ -23,6 +22,7 @@ require (
 	k8s.io/kubernetes v1.14.0
 	k8s.io/utils v0.0.0-20180726175726-66066c83e385 // indirect
 	kmodules.xyz/client-go v0.0.0-20190508091620-0d215c04352f
+	kubepack.dev/onessl v0.13.0
 )
 
 replace (

@@ -3,8 +3,8 @@ package cmds
 import (
 	"fmt"
 
-	"github.com/pharmer/pre-k/lib"
 	"github.com/spf13/cobra"
+	"pharmer.dev/pre-k/lib"
 )
 
 func NewCmdCloudProvider() *cobra.Command {

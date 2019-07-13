@@ -7,9 +7,9 @@ import (
 	"time"
 
 	"github.com/golang/glog"
-	"github.com/pharmer/pre-k/lib"
 	"github.com/spf13/cobra"
 	"k8s.io/kubernetes/pkg/util/mount"
+	"pharmer.dev/pre-k/lib"
 )
 
 const mountPath = "/mnt/master-pd"

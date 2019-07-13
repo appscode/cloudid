@@ -18,7 +18,7 @@ pre-k merge config [flags]
       --apiserver-cert-extra-sans strings    Optional extra altnames to use for the API Server serving cert. Can be both IP addresses and dns names.
       --cert-dir string                      The path where to save and store the certificates (default "/etc/kubernetes/pki")
       --cluster-config string                Path to kubeadm cluster config file (WARNING: Usage of a configuration file is experimental)
-      --cri-socket string                    Specify the CRI socket to connect to. (default "/var/run/dockershim.sock")
+      --cri-socket string                    Specify the CRI socket to connect to.
       --etcd-server string                   Etcd server address to join member, example: 127.0.0.1
       --feature-gates string                 A set of key=value pairs that describe feature gates for various features. Options are:
                                              

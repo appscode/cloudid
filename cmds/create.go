@@ -1,9 +1,9 @@
 package cmds
 
 import (
-	onessl "github.com/kubepack/onessl/cmds"
 	"github.com/spf13/cobra"
 	kubeadmapi "k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta1"
+	onessl "kubepack.dev/onessl/cmds"
 )
 
 func NewCmdCreate() *cobra.Command {
