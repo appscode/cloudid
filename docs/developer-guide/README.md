@@ -16,8 +16,8 @@ development environment, please follow [these instructions](https://golang.org/d
 #### Download Source
 
 ```console
-$ go get github.com/pharmer/pre-k
-$ cd $(go env GOPATH)/src/github.com/pharmer/pre-k
+$ go get pharmer.dev/pre-k
+$ cd $(go env GOPATH)/src/pharmer.dev/pre-k
 ```
 
 #### Install Dev tools

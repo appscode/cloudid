@@ -2,7 +2,7 @@
 set -eou pipefail
 
 GOPATH=$(go env GOPATH)
-REPO_ROOT="$GOPATH/src/github.com/pharmer/pre-k"
+REPO_ROOT="$GOPATH/src/pharmer.dev/pre-k"
 
 pushd $REPO_ROOT
 

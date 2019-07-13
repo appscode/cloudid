@@ -1,8 +1,8 @@
 package cmds
 
 import (
-	onessl "github.com/kubepack/onessl/cmds"
 	"github.com/spf13/cobra"
+	onessl "kubepack.dev/onessl/cmds"
 )
 
 func NewCmdGet() *cobra.Command {

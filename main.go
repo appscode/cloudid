@@ -3,8 +3,8 @@ package main
 import (
 	"os"
 
-	"github.com/pharmer/pre-k/cmds"
 	"kmodules.xyz/client-go/logs"
+	"pharmer.dev/pre-k/cmds"
 )
 
 func main() {

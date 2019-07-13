@@ -1,4 +1,4 @@
-[![Go Report Card](https://goreportcard.com/badge/github.com/pharmer/pre-k)](https://goreportcard.com/report/github.com/pharmer/pre-k)
+[![Go Report Card](https://goreportcard.com/badge/pharmer.dev/pre-k)](https://goreportcard.com/report/pharmer.dev/pre-k)
 [![Build Status](https://travis-ci.org/pharmer/pre-k.svg?branch=master)](https://travis-ci.org/pharmer/pre-k)
 [![codecov](https://codecov.io/gh/pharmer/pre-k/branch/master/graph/badge.svg)](https://codecov.io/gh/pharmer/pre-k)
 [![Slack](http://slack.kubernetes.io/badge.svg)](http://slack.kubernetes.io/#pharmer)

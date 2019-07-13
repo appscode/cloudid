@@ -7,7 +7,7 @@ The following steps must be done from a Linux x64 bit machine.
 - Push all the changes to remote repo.
 - Build and push pre-k docker image:
 ```console
-$ cd ~/go/src/github.com/pharmer/pre-k
+$ cd ~/go/src/pharmer.dev/pre-k
 ./hack/release.sh
 ```
 
