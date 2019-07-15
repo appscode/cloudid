@@ -15,19 +15,17 @@ require (
 	github.com/spf13/pflag v1.0.3
 	gomodules.xyz/cert v1.0.0
 	k8s.io/apimachinery v0.0.0-20190424052434-11f1676e3da4
-	k8s.io/apiserver v0.0.0-20190319190228-a4358799e4fe // indirect
 	k8s.io/client-go v11.0.0+incompatible
 	k8s.io/cluster-bootstrap v0.0.0-20190424054052-c2758412356a // indirect
 	k8s.io/klog v0.3.0
 	k8s.io/kubernetes v1.14.0
 	k8s.io/utils v0.0.0-20180726175726-66066c83e385 // indirect
-	kmodules.xyz/client-go v0.0.0-20190508091620-0d215c04352f
+	kmodules.xyz/client-go v0.0.0-20190715080709-7162a6c90b04
 	kubepack.dev/onessl v0.13.0
 )
 
 replace (
-	github.com/graymeta/stow => github.com/appscode/stow v0.0.0-20190506085026-ca5baa008ea3
-	gopkg.in/robfig/cron.v2 => github.com/appscode/cron v0.0.0-20170717094345-ca60c6d796d4
+	github.com/Azure/go-autorest => github.com/Azure/go-autorest/autorest v0.5.0
 	k8s.io/api => k8s.io/api v0.0.0-20190313235455-40a48860b5ab
 	k8s.io/apiextensions-apiserver => k8s.io/apiextensions-apiserver v0.0.0-20190315093550-53c4693659ed
 	k8s.io/apimachinery => github.com/kmodules/apimachinery v0.0.0-20190508045248-a52a97a7a2bf
