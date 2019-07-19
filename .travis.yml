@@ -3,6 +3,18 @@ go:
  - 1.x
  - tip
 
+go_import_path: pharmer.xyz/pre-k
+
+env:
+  global:
+  - GOFLAGS=-mod=vendor
+  - GO111MODULE=on
+
+cache:
+  directories:
+  - $HOME/.cache/go-build
+  - $GOPATH/pkg/mod
+
 install: true
 
 script:
