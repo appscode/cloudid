@@ -3,7 +3,7 @@ go:
  - 1.x
  - tip
 
-go_import_path: pharmer.xyz/pre-k
+go_import_path: pharmer.dev/pre-k
 
 env:
   global:
