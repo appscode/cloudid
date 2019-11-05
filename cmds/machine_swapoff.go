@@ -39,10 +39,10 @@ func NewCmdSwapoff() *cobra.Command {
 		Run: func(cmd *cobra.Command, args []string) {
 			cout, err := exec.Command("swapoff", "-a").CombinedOutput()
 			if err != nil {
-				fmt.Printf(string(cout))
+				fmt.Println(string(cout))
 				Fatal(err)
 			}
-			fmt.Printf(string(cout))
+			fmt.Println(string(cout))
 
 			data, err := ioutil.ReadFile(filename)
 			if err != nil {
