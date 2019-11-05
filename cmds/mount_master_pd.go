@@ -66,10 +66,8 @@ func NewCmdMountMasterPD() *cobra.Command {
 				switch provider {
 				case "aws":
 					device = findAWSMasterPd()
-					break
 				case "gce":
 					device = findGCEMasterPd()
-					break
 				}
 				fmt.Println("Mounting device", device)
 				if err = safeFormatAndMount.FormatAndMount(device, mountPath, "", []string{}); err != nil {
@@ -102,7 +100,7 @@ func findAWSMasterPd() string {
 	// ref: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/device_naming.html#available-ec2-device-names
 	// Waiting for master pd to be attached
 	attempt := 0
-	for true {
+	for {
 		fmt.Printf("attempt %v to check for /dev/xvdb\n", attempt)
 		if _, err := os.Stat("/dev/xvdb"); err == nil {
 			fmt.Println("Found /dev/xvdb")
@@ -134,14 +132,22 @@ func findGCEMasterPd() string {
 func createSymlinks() {
 	//etcd
 	fmt.Println("createing etcd symlink")
-	os.MkdirAll(mountPath+"/var/lib/", 0700)
-	lib.Run("ln", "-sf", "/var/lib/etcd", mountPath+"/var/lib/")
+	if err := os.MkdirAll(mountPath+"/var/lib/", 0700); err != nil {
+		Fatal(err)
+	}
+	if err := lib.Run("ln", "-sf", "/var/lib/etcd", mountPath+"/var/lib/"); err != nil {
+		Fatal(err)
+	}
 
 	//kubernetes
 	fmt.Println("createing kubernetes symlink")
 
-	os.MkdirAll(mountPath+"/etc", 0777)
-	lib.Run("ln", "-sf", "/etc/kubernetes", mountPath+"/etc/")
+	if err := os.MkdirAll(mountPath+"/etc", 0777); err != nil {
+		Fatal(err)
+	}
+	if err := lib.Run("ln", "-sf", "/etc/kubernetes", mountPath+"/etc/"); err != nil {
+		Fatal(err)
+	}
 
 	if !lib.UserExists("etcd") {
 		if err := lib.Run("useradd", "-s", "/sbin/nologin", "-d", "/var/etcd", "etcd"); err != nil {
