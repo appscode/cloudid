@@ -44,7 +44,7 @@ func NewCmdMountMasterPD() *cobra.Command {
 
 			safeFormatAndMount := &mount.SafeFormatAndMount{}
 			safeFormatAndMount.Interface = mount.New("")
-			safeFormatAndMount.Exec = mount.NewOsExec()
+			safeFormatAndMount.Exec = mount.NewOSExec()
 
 			mounts, err := safeFormatAndMount.List()
 			if err != nil {
